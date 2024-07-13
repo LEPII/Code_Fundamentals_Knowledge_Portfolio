@@ -1,11 +1,10 @@
-const url = "http://httpRequest.com/log";
+const EventEmitter = require("events")
 
-function log(message) {
-    // send http request
-    console.log(message)
-    console.log(module)
-}
+const Logger = require("./app")
+const logger = new Logger(); 
 
+logger.on("messageLogged", (arg) => {
+    console.log("Listener called", arg )
+})
 
-
-module.exports = log
+logger.log("message");

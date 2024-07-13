@@ -120,11 +120,21 @@ const ext = path.extname(filePath);
 // Exiting the process
 // Getting process ID (PID)
 // Working with command-line arguments
-
 const process = require("process");
 
 console.log(`PID: ${process.pid}`);
 console.log(`Command Line Arguments: ${process.argv.slice(2)}`);
+
+/// Path Module
+// https://nodejs.org/docs/latest/api/path.html
+const path = require("path"); // node assumes "path" is a  built in module. If there is no built module
+// by the name specified here, then, Node looks for the existence of a related path to a file
+// in this application. Using '..path' or '../path'
+
+// "path returns an object"
+let pathObj = path.parse(__filename);
+
+console.log(pathObj);
 
 // -- Query Strings
 // Not a built-in module: Requires the querystring module to be installed (npm install querystring).
@@ -132,7 +142,6 @@ console.log(`Command Line Arguments: ${process.argv.slice(2)}`);
 // Common tasks include:
 // Parsing a query string into an object
 // Stringifying an object into a query string
-
 const querystring = require("querystring");
 
 const queryStringData = "name=John&age=30";
@@ -148,8 +157,9 @@ console.log(parsedObj); // { name: 'John', age: '30' }
 // Reading data from files, network connections, or other sources in chunks
 // Writing data to files, network connections, or other destinations in chunks
 // Creating pipelines of operations to transform data streams
-
 const fs = require("fs");
+const { objectEnumNames } = require("@prisma/client/runtime/library");
+const { EventEmitter } = require("stream");
 const stream = fs.createReadStream("largeFile.txt");
 
 stream.on("data", (chunk) => {
@@ -160,15 +170,38 @@ stream.on("end", () => {
   console.log("Finished reading file");
 });
 
-/// Path Module
-// https://nodejs.org/docs/latest/api/path.html
+///  Events Module
+
+// An event is a signal that something has happened in our application.
+// A listen is a function when an event is raised.
+
+// For example in Node, we have a class called http that we can build a web server. So we listen on
+// a given port and every time we receive a request on that port, the http class raises an event.
+
+// Our job is to respond to that event which involves reading the request and returning the right response.
+
+// CamelCasing is a indicator that you are working with a class.
+// A class is a container for properties and function which we call methods, so this
+// Event Emitter class,
+
+///  Event Arguments
+
+// Often when we raise an event, you also want to send some data about that event.
+
+///  Extending EventEmitter
 
 
+// You very rare you would work with the new EventEmitter() directly. Instead you create a class that has all the capabilities, but also has additional capabilities
 
+class Logger extends EventEmitter {
+  log(message) {
+    console.log(message);
+      this.emit("messageLogged", { id: 1, url: "http" });
+  }
+}
 
-///  OS Module 
-///  File System Module 
-///  Events Module 
-///  Event Arguments  
-///  Extending EventEmitter  
-///  HTTP Module 
+module.exports = Logger
+
+// To recap, if you want to raise events in your application, to signal something has happened, you need to create a class that extends EventEmitter while also adding additional functionality, in this case the "log method" above. You use the this.emit to raise the event while referencing the class itself while extending the EventEmitter Class. . 
+
+///  HTTP Module

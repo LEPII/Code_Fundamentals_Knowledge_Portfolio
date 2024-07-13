@@ -1,4 +1,4 @@
-/// FUNDAMENTALS
+//// FUNDAMENTALS
 
 /// Any
 function render(document: any) {
