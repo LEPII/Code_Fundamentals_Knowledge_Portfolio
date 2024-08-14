@@ -30,15 +30,61 @@ mongoose
 
 // When you want to conditionally make a property required or not, you can return a function that returns a boolean.
 // EX. `days` is only required if `completed` is true is false
+
 const programSchema = new mongoose.Schema({
   name: { type: String, required: true }, // only in mongoose, mongo doesn't care about this name property unlike SQL/MYSQL where validation is more integrated at the DB level.
-  exercise: String,
+  name: {
+    type: String,
+    required: true, // Ensure name is not empty
+    minlength: 3, // Minimum length of 3 characters
+    maxlength: 50, // Maximum length of 50 characters
+    lowercase: true,
+    uppercase: false,
+    trim: true
+  },
+  exercise: {
+    type: String,
+    enum: ["All of them", "Upper Body", "Lower Body", "Cardio"], // Allowed options
+  },
+  weeks: {
+    type: [String],
+    required: true, // Ensure days array is not empty
+    minlength: 1, // Minimum of 1 day
+    maxlength: 5, // Maximum of 5 days
+    of: String, // Each element must be a string (day name)
+  },
+  months: {
+    type: Array,
+    validate: {
+      isAsync: true,
+      validator: function (v, callback) {
+        setTimeout(() => {
+          const result = v.length > 0;
+          callback(result);
+        }, 2000);
+      },
+      message: "Program should be at least one month",
+    },
+  },
+  completed: {
+    type: Boolean,
+    required: true, // Ensure completed is set (true or false)
+  },
+  startDate: {
+    type: Date,
+    default: Date.now, // Default to current date
+  },
+  duration: {
+    type: Number,
+    min: 1, // Minimum duration of 1 day
+    max: 30, // Maximum duration of 30 days
+  },
   dateCreated: { type: Date, default: Date.now },
   completed: Boolean,
   days: {
     type: [String],
     required: function () {
-      return this.completed; // if completed true, then days is required. 
+      return this.completed; // if completed true, then days is required.
     }, // use .this to reference this object
   }, // using an arrow function will not work because arrow functions don't have their own this.
 });
@@ -48,19 +94,19 @@ const Program = mongoose.model("Program", programSchema);
 
 async function createProgram() {
   const program = new Program({
-    name: "Block 3",
+    name: "-",
     exercise: "Some of them",
     // days: ["Mon", "Fri"],
     completed: true,
   });
 
   try {
-//     // to manually set validation
+    //     // to manually set validation
     // program.validate()
-//     // OR
+    //     // OR
     const result = await program.save();
-     console.log(result);
- } catch (ex) {
+    console.log(result);
+  } catch (ex) {
     console.log(ex.message); // Output: Program validation failed: name: Path `name` is required.
     // If you have an invalid object, Mongoose doesn't allow us to save that course to the database.
     // Validation kicks in when you try to validate.

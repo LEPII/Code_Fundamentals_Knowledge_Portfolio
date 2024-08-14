@@ -1,0 +1,24 @@
+const max = (x, y) => {
+  return a > b ? a : b;
+};
+
+//
+const isLandscape = (width, height) => {
+  return width > height; // no need to explicity write true/false in the code.
+};
+
+//
+
+const fizzBuzz = (input) => {
+  if (input === NaN) return NaN; // || if (typeof input !== "number") return NaN
+  else if (input % 3 === 0 && input % 5 === 0) return "Fizzbuzz";
+  else if (input % 3 === 0) return "Fizz";
+  else if (input % 5 === 0) return "Buzz";
+  return input;
+};
+
+checkSpeed();
+
+const checkSpeed = (speed) => {
+    
+};
