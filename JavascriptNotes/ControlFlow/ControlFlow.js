@@ -115,15 +115,6 @@ do {
 //   console.log(i);
 // }
 
-// Side note reminder
-// Two Ways to Access Properties of an object 
-
-// - Dot Notation
-person.name
-
-// - Bracket Notation
-person['nameOfPropertyInAString']
-
 ///  7- For...in
 // Iterates over the enumerable property names of an object.
 // Returns property names as strings.

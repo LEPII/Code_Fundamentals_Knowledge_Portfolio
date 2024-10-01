@@ -66,3 +66,14 @@ Object.defineProperty(this, 'defaultLocation', {
     get: function() { return defaultLocation; },
     set: function(value) { defaultLocation = value; }
 });
+
+
+// Getters and Setters in JavaScript
+// Getters and setters are special methods in JavaScript that provide a way to control access to object properties. They allow you to define custom logic for retrieving or setting property values, offering greater flexibility and encapsulation.
+
+// When to Use Getters and Setters
+// Encapsulation: To hide the implementation details of property access.
+// Validation: To validate values before setting them to a property.
+// Calculation: To calculate a property value based on other properties.
+// Caching: To cache calculated values for performance optimization.
+// Data Transformation: To transform data before returning it or setting it.
