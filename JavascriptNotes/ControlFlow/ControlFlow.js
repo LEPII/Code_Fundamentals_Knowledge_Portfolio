@@ -51,8 +51,8 @@ switch (day) {
 // - Do...while
 
 // With these loops you can iterate over the properties of an object or elements of an array.  
-// - For...in
-// - For...of
+// - For...in ==> Objects
+// - For...of ==> Arrays 
 
 ///  3- For
 

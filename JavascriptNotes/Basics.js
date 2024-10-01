@@ -5,26 +5,6 @@
 /// Operators
 // typeof 
 
-////Objects
-
-let athlete = {
-    name: "Sean Noriega",
-    total: 203,
-}
-
-/// Two Ways of Iterating (Dot/Bracket Notation )
-
-// Bracket Notation - pass a string that represents the target property
-// could be used when the property isn't known at run time (user could be 
-// selecting it at run time)
-
-let selection = "user's total"
-athlete[selection] = 302;
-// OR 
-athlete["total"] = 302;
-
-// Dot Notation 
-athlete.name = "Jamal Browner"
 
 ////Array
 // Best used for lists.

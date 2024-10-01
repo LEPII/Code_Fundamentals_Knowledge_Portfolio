@@ -27,11 +27,11 @@
 // These operators can be used in two forms: prefix and postfix. 
 
 // * **Prefix (e.g., ++x/--x) = Returns value AFTER incrementing/decrementing. 
-// Use case: When you want to modify the variable and then use its updated value in the same expression.
+// USE CASE: When you want to modify the variable and then use its updated value in the same expression.
 // Example: `x = ++y; // Here, y is incremented first, then its new value is assigned to x`
 
 // * **Postfix (e.g., x++/x--) - The  the original value is first returned BEFORE incrementing/decrementing. 
-// Use case: When you want to use the original value of the variable and then modify it. 
+// USE CASE: When you want to use the original value of the variable and then modify it. 
 // Example: `z = x++; // Here, the original value of x is assigned to z, then x is incremented`
 
 
