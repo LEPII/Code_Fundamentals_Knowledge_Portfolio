@@ -51,8 +51,8 @@ checkSpeed(150);
 
 const showNumbers = (limit) => {
   for (let i = 0; i <= limit; i++) {
-    if (i % 2 === 0) console.log(i, "Even Steven");
-    else console.log(i, "Odd Bob");
+    // if (i % 2 === 0) console.log(i, "Even Steven");
+    // else console.log(i, "Odd Bob");
     const message = i % 2 === 0 ? "Even Steven" : "Odd Bob";
     console.log(i, message);
   }
@@ -68,7 +68,7 @@ const countTruthy = (array) => {
   return count;
 };
 
-// 7. Type Properties - In this case we want to return strings
+// 7. Type Properties - In this case we want to return the key/value pairs where the values are strings
 
 const movie = {
   title: "a",
@@ -80,7 +80,78 @@ const movie = {
 const showProperties = (obj) => {
   for (let key in obj)
     if (typeof obj[key] === "string") console.log(key, obj[key]);
-      console.log(key, obj[key])
+  console.log(key, obj[key]);
 };
 
 // 8. Sum of Multiples of 3 and 5
+// Create func called sum where we give it a limit(number) it it returns the sum all the multiples of 3 and 5 from 0 up to this limit.
+
+const sum = (limit) => {
+  let count = 0;
+
+  for (let i = 0; i <= limit; i++) if (i % 3 === 0 || i % 5 === 0) count += i;
+
+  return count;
+};
+
+console.log(sum(10));
+
+// 9. Grade
+// We want to calculate the Grade of a Student
+
+// 0-59: F // 6-69: D // 70-79: C // 80-89: B // 90-100: A
+
+const marks = [90, 80, 45];
+
+const calculateGrade = (marks) => {
+  const average = calculateAverage(marks);
+
+  if (average < 60) return "F";
+  if (average < 70) return "D";
+  if (average < 80) return "C";
+  if (average < 90) return "B";
+
+  return "A";
+};
+
+const calculateAverage = (array) => {
+  let sum = 0;
+
+  for (let value of array) sum += value;
+
+  return sum / array.length;
+};
+console.log(calculateGrade(marks));
+
+// 10. Stars
+
+const showStars = (rows) => {
+  for (let row = 1; row <= rows; row++) {
+    let pattern = "";
+    for (let i = 0; i < row; i++) pattern += "*WHODATNATION*";
+    console.log(pattern);
+  }
+};
+
+showStars(5);
+
+// Prime Numbers - log Prime Numbers Only
+
+const showOptimusPrimeNumbers = (limit) => {
+  // Starting at 1 is not a prime number
+  for (let number = 2; number <= limit; number++) {
+    // going from 2 to the current number (i)
+    // with this nested loop we can see if I has a factor-Number other than 1 and itself.
+    let isPrime = true;
+    for (let factor = 2; factor < number; factor++) {
+      if (number % factor === 0) {
+        isPrime = false;
+        break;
+        // The break statement is used to immediately exit the inner loop when a factor is found. This is because if a number is divisible by a factor greater than its square root, it must also be divisible by a factor less than its square root. So, once a factor is found, there's no need to continue checking larger factors.
+      }
+    }
+    if (isPrime) console.log(number);
+  }
+};
+
+showOptimusPrimeNumbers(20);
