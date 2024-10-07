@@ -1,5 +1,91 @@
 //// OBJECTS
 
+// Objects are a collection a collection of {key: value} pairs.
+
+/// Defining An Object
+
+// 1. Object literal
+const myExAvi = {
+  name: "Lui", // can be any type of value.
+  age: 30,
+  city: "New York",
+};
+
+// Explanation: Directly defines properties and values within curly braces.
+// Pros: Simple, concise, and commonly used.
+// Cons: Limited for creating complex objects with methods or inheritance.
+
+// 2. Constructor function
+
+function Person(name, age, city) {
+  this.name = name;
+  this.age = age;
+  this.city = city;
+}
+
+const myExAvi2 = new Person("Lui", 30, "New York");
+
+// Explanation: Creates a function that acts as a blueprint for creating objects.
+// Pros: Can be used for creating multiple objects with the same structure, supports inheritance.
+// Cons: Less readable and maintainable compared to classes, can lead to confusion with this keyword.
+
+// 3. Class syntax
+
+class Person {
+  constructor(name, age, city) {
+    this.name = name;
+    this.age = age;
+    this.city = city;
+  }
+}
+
+// Explanation: A more modern and cleaner way to define objects and classes.
+// Pros: Improved readability, supports inheritance, and has built-in methods like extends and super.
+// Cons: Requires ES6 or later compatibility.
+
+const myExAvi3 = new Person("Lui", 30, "New York");
+
+// 4. Object.create() method
+
+const myExAvi4 = Object.create(null, {
+  name: { value: "Lui" },
+  age: { value: 30 },
+  city: { value: "New York" },
+});
+
+// Explanation: Creates a new object with a specified prototype, allowing for inheritance.
+// Pros: Provides fine-grained control over the prototype and properties.
+// Cons: Can be more complex to understand for beginners.
+
+// 5. Destructuring assignment
+
+const myExAvi5 = {
+  names: "Lui",
+  ages: 30,
+  cities: "New York, Miami",
+};
+
+// Explanation: Extracts properties from an existing object into variables.
+// Pros: Concise syntax, useful for creating new objects based on existing ones.
+// Cons: Primarily used for extracting properties rather than creating new objects.
+
+const { names, ages, city } = myExAvi5;
+
+// 6. Object.assign() method
+
+const myExAvi6 = Object.assign(
+  {},
+  { name: "Lui" },
+  { age: 30 },
+  { city: "New York" }
+);
+
+// Explanation: Creates a new object by copying properties from existing objects.
+// Pros: Flexible for merging properties from multiple objects.
+// Cons: Can be less readable for complex object creations.
+
+/// Accessing An Object
+
 // There are several ways to access properties and values of an object in JavaScript:
 
 // 1. Dot notation:
@@ -35,7 +121,7 @@ console.log(person.age); // Output: 30
 const { name, age } = person3;
 console.log(age); // Output: 26
 
-// // // // // 
+// // // // //
 const person567 = {
   name: "Sam",
   age: 30,
