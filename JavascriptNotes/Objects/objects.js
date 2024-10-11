@@ -1,7 +1,7 @@
 //// OBJECTS
 
 // - Objects are a collection a collection of {key: value} pairs.
-// - Object are dynamic by nature. Once they are created, we can always add new properties or methods or remove existing ones. 
+// - Object are dynamic by nature. Once they are created, we can always add new properties or methods or remove existing ones.
 
 // - The `delete` keyword in JavaScript is used to remove properties from an object. When you use delete followed by an object and the property name, it attempts to remove the specified property from that object. If the property exists, it is successfully deleted. If the property doesn't exist or is non-configurable, the delete operation will return false.
 // Important Notes:
@@ -27,14 +27,9 @@ const MyFavoriteMcDonaldsOrder = {
 };
 
 MyFavoriteMcDonaldsOrder.sides();
-MyFavoriteMcDonaldsOrder.favoriteBurger = "Big Mac"
-delete MyFavoriteMcDonaldsOrder.number // or sides - could be property or method.
-console.log(MyFavoriteMcDonaldsOrder.favoriteBurger)
-
-
-
-
-
+MyFavoriteMcDonaldsOrder.favoriteBurger = "Big Mac";
+delete MyFavoriteMcDonaldsOrder.number; // or sides - could be property or method.
+console.log(MyFavoriteMcDonaldsOrder.favoriteBurger);
 
 //// Defining An Object
 
@@ -67,7 +62,7 @@ function createObject(property1, property2, property3) {
   };
 }
 
-const exampleObj1 = createObject(1,2,3).eatFood();
+const exampleObj1 = createObject(1, 2, 3).eatFood();
 
 // To make the object dynamic, we pass them in within the values as properties.
 // A short-hand way of writing if the key & value are the same by simply adding the key like in ^ property3
@@ -169,8 +164,9 @@ const myExAvi6 = Object.assign(
 // Pros: Flexible for merging properties from multiple objects.
 // Cons: Can be less readable for complex object creations.
 
+//
 
-
+//
 
 //// Accessing An Object
 
@@ -232,9 +228,6 @@ console.log(values); // Output: ["Sam", 30]
 const entries = Object.entries(person567);
 console.log(entries); // Output: [["name", "Alice"], ["age", 30]]
 
-
-
-
 //// The Constructor Property in JavaScript
 
 // The constructor property is a built-in property of objects in JavaScript that {references the function used to create the object.} It essentially points back to the constructor function that was used to instantiate the object.
@@ -251,18 +244,21 @@ function Dog(name, breed) {
   this.breed = breed;
 }
 
-
-const dog = new Dog("Lily", "The most beautiful pit mix that the human naked eyes can lay on");
+const dog = new Dog(
+  "Lily",
+  "The most beautiful pit mix that the human naked eyes can lay on"
+);
 console.log(dog.constructor); // Output: Dog
 console.log(dog instanceof Animal); // Output: true
 
 // When you create an object using an object literal, the constructor property points to the Object function. This is because object literals are essentially shorthand for creating new objects using the Object constructor.
 
+/// Primitive / Value Types
+
 // JavaScript has built-in constructors for all value types:
 
 // Number(): Creates a new number object.
 // String(): Creates a new string object.
-// Function(): Creates a new function object. 
 // Boolean(): Creates a new boolean object.
 // Symbol(): Creates a new symbol object.
 // BigInt(): Creates a new BigInt object.
@@ -274,12 +270,75 @@ console.log(dog instanceof Animal); // Output: true
 
 // Wrapper Objects: However, JavaScript automatically wraps primitive values in corresponding wrapper objects when you access their properties or methods. These wrapper objects have a constructor property that points to the corresponding built-in constructor.
 
+// Constructor functions in JavaScript have several built-in methods and properties that provide additional functionality and flexibility.
 
-// Constructor functions in JavaScript have several built-in methods and properties that provide additional functionality and flexibility. 
+/// Reference Type
 
-// Methods
+// Object: Represents a collection of key-value pairs.
+// Array: Represents an ordered collection of values.
+// Function: Represents a block of code that can be executed.
+// Date: Represents a specific point in time.
+// RegExp: Represents a regular expression pattern.
 
-apply(thisArg, [args])
+/// Key Differences:
+
+// Primitives / Value Types: When you assign a value type to a variable, the variable stores a copy of the value. Changes to one variable do not affect the other. In other words, they are copied by their value.
+// Reference Types: When you assign a reference type to a variable, the variable stores a reference to the object in memory. Changes to one variable can affect the other if they refer to the same object. In other words, reference types / objects are copied by their reference.
+
+// Value types
+let x = 10;
+let y = x;
+y = 20;
+console.log(x); // Output: 10
+
+// Reference types
+let person19 = { name: "Bobby" };
+let person20 = person19;
+person20.name = "Rocky";
+console.log(person19.name); // Output: Rocky
+// the object is stored somewhere else in memory and the address of that memory location is stored inside the variable. When you modify either variable, it's changed are immediately available to the other variable.
+
+//
+//
+//
+
+/// Cloning An Object
+
+const randomObj2 = {
+  myNum: 3,
+  favFood: "Arepas",
+};
+
+const favoriteMeal = {};
+
+// Methods for Cloning Objects
+
+// - for...in loop: This is the method used in the example. It iterates over the properties of the original object and creates new properties in the new object with the same keys and values.
+
+// - Spread operator (...): This is a concise way to create a shallow copy of an object. For example: const newObject = { ...originalObject };
+
+const another = { ...randomObj2 };
+
+// - Object.assign(): This method can be used to create a shallow copy or a deep copy depending on how it's used. To create a shallow copy;. To create a deep copy, you'll need to implement a custom function or use a library that provides deep cloning functionality.
+
+const newObject = Object.assign(
+  {
+    newProperty: true,
+  },
+  randomObj2
+);
+
+// Output a cloned randomObj2 + the newProperty: true within the new cloned object
+
+// - JSON.parse(JSON.stringify()): This method can also be used to create a deep copy of an object, but it's less efficient than other methods and may not handle all object types correctly.
+
+//
+//
+//
+
+/// Default Methods on Objects
+
+apply(thisArg, [args]);
 // Calls a function with a given this value and an array of arguments.
 // Useful for passing arguments dynamically or changing the context of a function.
 
@@ -293,4 +352,3 @@ call(thisArg, args);
 
 toString();
 // Returns a string representation of the function
-
