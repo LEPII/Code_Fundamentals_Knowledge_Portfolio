@@ -44,15 +44,14 @@ switch (day) {
 
 /// Types of Loops
 
-
-// With these loops you can repeat an action a number of times. 
+// With these loops you can repeat an action a number of times.
 // - For
 // - While
 // - Do...while
 
-// With these loops you can iterate over the properties of an object or elements of an array.  
+// With these loops you can iterate over the properties of an object or elements of an array.
 // - For...in ==> Objects
-// - For...of ==> Arrays 
+// - For...of ==> Arrays
 
 ///  3- For
 
@@ -115,6 +114,10 @@ do {
 //   console.log(i);
 // }
 
+// When to Use Which
+// Use for...in => OBJECTS => when you need to iterate over object properties and you don't care about the order.
+// Use for...of => ARRAYS =>  when you need to iterate over the values of an iterable object and the order matters.
+
 ///  7- For...in
 // Iterates over the enumerable property names of an object.
 // Returns property names as strings.
@@ -126,13 +129,13 @@ for (let property in object) {
 }
 
 const person = {
-  name: "Alice",
-  age: 30,
-  city: "New York",
+  name: "Luis",
+  age: 26,
+  city: "Miami",
 };
 
-for (let property in person) {
-  console.log(property, person[property]);
+for (let key in person) {
+  console.log(key, person[key]);
 }
 
 // Output:
@@ -140,31 +143,50 @@ for (let property in person) {
 // age 30
 // city New York
 
-//
-
 ///  8- For...of
 // Iterates over the values of an iterable object.
 // Returns the value of each element.
 // Order of iteration is guaranteed.
 // Does not iterate over inherited properties.
 
-const numbers = [1, 2, 3, 4, 5];
+const numbers = [1, 2, 3];
 
 for (let number of numbers) {
   console.log(number);
 }
 
-// Output 
-
+// Output
 // 1;
 // 2;
 // 3;
-// 4;
-// 5;
 
-// When to Use Which
-// Use for...in when you need to iterate over object properties and you don't care about the order.
-// Use for...of when you need to iterate over the values of an iterable object and the order matters.
+const randomObject = {
+  number: 12,
+  city: "Miami",
+};
+
+for (let theKeys of Object.keys(randomObject)) console.log(theKeys);
+// Output: ["number", "city"]
+
+// Object.keys()
+// Returns: An array containing the names of all enumerable properties of the object.
+// Purpose: Used when you only need the property names.
+
+for (let entry of Object.entries(randomObject)) console.log(entry);
+
+// Object.entries()
+// Returns: An array of arrays, where each inner array contains a key-value pair for an enumerable property of the object.
+// Purpose: Used when you need both the property names and their corresponding values.
+// Output: [["number", 12], ["city", "Miami"]]
+
+/// `in` Operator - The in operator in JavaScript is used to check if a property exists within an object.
+
+if ("city" in randomObject) {
+  console.log("myCity");
+}
+// Output: "myCity"
+
+
 
 ///  9- Break and Continue
 

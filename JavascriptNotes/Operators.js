@@ -84,7 +84,6 @@
 // - false
 
 
-
 /// Bitwise operators
 // &       Bitwise AND - Performs AND operation on each bit of two numbers
 // |       Bitwise OR - Performs OR operation on each bit of two numbers
@@ -93,3 +92,10 @@
 // <<      Left shift - Shifts bits of a number to the left (filling with zeros on the right)
 // >>      Right shift - Shifts bits of a number to the right (may fill with zeros or ones on the left depending on the language)
 // >>>     Unsigned right shift - Similar to right shift but always fills with zeros on the left
+
+
+// Other Operators
+// in (checks if a property exists in an object)
+// typeof (returns the type of a value)
+// delete (removes a property from an object)
+// void (returns undefined)

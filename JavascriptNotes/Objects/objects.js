@@ -9,7 +9,7 @@
 // If the property is non-configurable (e.g., defined with Object.defineProperty with configurable: false), the delete operation will fail and return false.
 // Using delete can modify the object's structure, so use it with caution.
 
-// Even with using `const` , we cannot reassign the object itself but we could always change the object by adding/removing properties
+// Using `const` , we cannot reassign the object itself but we could always change the object by adding/removing properties
 
 const MyFavoriteMcDonaldsOrder = {
   number: 6,
@@ -311,7 +311,7 @@ const randomObj2 = {
 
 const favoriteMeal = {};
 
-// Methods for Cloning Objects
+//// Methods for Cloning Objects
 
 // - for...in loop: This is the method used in the example. It iterates over the properties of the original object and creates new properties in the new object with the same keys and values.
 
@@ -331,6 +331,14 @@ const newObject = Object.assign(
 // Output a cloned randomObj2 + the newProperty: true within the new cloned object
 
 // - JSON.parse(JSON.stringify()): This method can also be used to create a deep copy of an object, but it's less efficient than other methods and may not handle all object types correctly.
+
+//// Shallow vs. Deep Copy:
+
+// A shallow copy of an object creates a new object with the same properties and values. However, if the original object contains nested objects or arrays, the shallow copy will reference the same nested objects or arrays. This means that changes made to the nested objects or arrays in the original object will also be reflected in the shallow copy.
+
+// A deep copy creates a new object with the same properties and values, but it also creates new copies of any nested objects or arrays. This ensures that changes made to the nested objects or arrays in the original object will not affect the deep copy.
+
+// The principle of shallow and deep copies applies to all types in JavaScript, but it's particularly relevant for objects and arrays due to their potential to contain nested structures.
 
 //
 //
@@ -352,3 +360,112 @@ call(thisArg, args);
 
 toString();
 // Returns a string representation of the function
+
+//
+//
+//
+
+//// Built In Objects
+
+/// MATH
+// The Math object provides mathematical constants and functions.
+
+// Common Properties
+// Math.E: Euler's number (approximately 2.71828).
+// Math.PI: Pi (approximately 3.14159).
+// Math.SQRT2: The square root of 2 (approximately 1.41421).
+// Math.SQRT1_2: The square root of 1/2 (approximately 0.70711).
+// Math.LN2: The natural logarithm of 2 (approximately 0.69315).
+// Math.LN10: The natural logarithm of 10 (approximately 2.30259).
+// Math.LOG2E: The base-2 logarithm of E (approximately 1.44269).
+// Math.LOG10E: The base-10 logarithm of E (approximately 0.43429).
+
+// Common Methods
+// Math.abs(x): Returns the absolute value of x.
+// Math.acos(x): Returns the arccosine of x in radians.
+// Math.asin(x): Returns the arcsine of x in radians.
+// Math.atan(x): Returns the arctangent of x in radians.
+// Math.atan2(y,
+// x): Returns the arctangent of y/x in radians.
+// Math.ceil(x): Returns the smallest integer greater than or equal to x.
+// Math.cos(x): Returns the cosine of x in radians.
+// Math.exp(x): Returns e raised to the power of x.
+// Math.floor(x): Returns the largest integer less than or equal to x.
+// Math.log(x): Returns the natural logarithm of x.
+// Math.max(...values): Returns the maximum value among the arguments.
+// Math.min(...values): Returns the minimum value among the arguments.
+// Math.pow(x, y): Returns x raised to the power of y.
+// Math.random(): Returns a random floating-point number between 0 and 1 (exclusive).
+// Math.round(x): Returns the nearest integer to x.
+// Math.sin(x): Returns the sine of x in radians.
+// Math.sqrt(x): Returns the square root of x.
+// Math.tan(x): Returns the tangent of x in radians.
+
+//
+//
+
+/// STRING
+// - The `String` objects provides mathematical constants and functions.
+
+// Common Properties
+// String.fromCharCode(...codePoints): Creates a new string from the specified code points.
+
+// Common Methods
+// charAt(index): Returns the character at the specified index.
+// charCodeAt(index): Returns the Unicode code point of the character at the specified index.
+// concat(...strings): Concatenates the specified strings to the end of the string.
+// indexOf(searchValue, fromIndex): Returns the index of the first occurrence of the specified search value in the string.
+// lastIndexOf(searchValue, fromIndex): Returns the index of the last occurrence of the specified search value in the string.
+// length: Returns the length of the string.
+// replace(searchValue, newValue): Replaces the first occurrence of the specified search value with the specified new value.
+// slice(start, end): Extracts a substring from the string.
+// split(separator, limit): Splits the string into an array of substrings.
+// substring(start, end): Extracts a substring from the string.
+// toLowerCase(): Converts the string to lowercase.
+// toUpperCase(): Converts the string to uppercase.
+// trim(): Removes leading and trailing whitespace from the string.
+// trimStart(): Removes leading whitespace from the string.
+// trimEnd(): Removes trailing whitespace from the string.
+
+//
+//
+
+/// DATE
+// - The Date object represents a specific point in time. It provides methods to create, format, and manipulate dates.
+
+// Common Properties
+// Date.now(): Returns the current time in milliseconds since the Unix epoch (January 1, 1970).
+// Date.UTC(year, month, day, hour, minute, second, millisecond): Creates a new Date object for a specific UTC time.
+
+// Common Methods
+// getFullYear(): Returns the year (4 digits).
+// getMonth(): Returns the month (0-11).
+// getDate(): Returns the day of the month (1-31).
+// getHours(): Returns the hours (0-23).
+// getMinutes(): Returns the minutes (0-59).
+// getSeconds(): Returns the seconds (0-59).
+// getMilliseconds(): Returns the milliseconds (0-999).
+// getTime(): Returns the time in milliseconds since the Unix epoch.
+// setFullYear(year, month, day): Sets the year, month, and day.
+// setMonth(month, day): Sets the month and day.
+// setDate(day): Sets the day of the month.
+// setHours(hours, minutes, seconds, milliseconds): Sets the hours, minutes, seconds, and milliseconds.
+// setMinutes(minutes, seconds, milliseconds): Sets the minutes, seconds, and milliseconds.
+// setSeconds(seconds, milliseconds): Sets the seconds and milliseconds.
+// setMilliseconds(milliseconds): Sets the milliseconds.
+// getTimezoneOffset(): Returns the time zone offset in minutes from UTC.
+// toISOString(): Returns the date as an ISO 8601 string.
+// toDateString(): Returns the date as a human-readable string.
+// toTimeString(): Returns the time as a human-readable string.
+
+//
+//
+//
+
+//// Garbage Collection
+
+// JavaScript handles memory management automatically through a process called garbage collection. This means that the JavaScript engine is responsible for tracking objects and determining when they are no longer in use. When an object becomes unreachable, the garbage collector frees up the memory it occupies.
+
+// Reference Counting: JavaScript often uses a technique called reference counting. Every object keeps track of the number of references pointing to it. When an object's reference count reaches zero, it becomes unreachable and is marked for deletion.
+
+// Mark and Sweep: Another common method is mark and sweep. The garbage collector periodically scans the memory heap, marking reachable objects. Objects that are not marked are considered garbage and are reclaimed.
