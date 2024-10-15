@@ -367,6 +367,51 @@ toString();
 
 //// Built In Objects
 
+/// ARRAY
+// - The Array object represents an ordered collection of elements.
+
+// Common Properties:
+// length: The number of elements in the array.
+
+// Common Methods:
+// push(...elements): Adds elements to the end of the array.
+// pop(): Removes the last element from the array and returns it.
+// shift(): Removes the first element from the array and returns it.
+// unshift(...elements): Adds elements to the beginning of the array.
+// slice(start, end): Extracts a portion of the array.
+// splice(start, deleteCount, ...items): Removes elements from the array and inserts new elements.
+// join(separator): Joins the elements of the array into a string.
+// forEach(callback(element, index, array)): Calls a function for each element in the array.
+// map(callback(element, index, array)): Creates a new array with the results of calling a function for each element in the array.
+// filter(callback(element, index, array)): Creates a new array with elements that pass a test implemented by the provided function.
+// reduce(callback(accumulator, currentValue, currentIndex, array), initialValue): Applies a function to an accumulator and each element in the array to reduce it to a single value.
+
+//
+//
+
+/// BOOLEAN
+// - The Boolean object represents a boolean value (true or false).
+
+// Common Properties
+// Boolean.prototype.valueOf(): Returns the primitive boolean value associated with the Boolean object.
+
+//
+//
+
+// Error Object
+// The Error object represents an error that occurred during program execution.
+
+// Common Properties:
+// Error.prototype.message: A human-readable description of the error.
+// Error.prototype.name: The name of the error.
+// Error.prototype.stack: A string representing the stack trace of the error.
+
+// Common Methods:
+// Error.prototype.toString(): Returns a string representation of the error.
+
+//
+//
+
 /// MATH
 // The Math object provides mathematical constants and functions.
 
@@ -404,59 +449,33 @@ toString();
 //
 //
 
-/// STRING
-// - The `String` objects provides mathematical constants and functions.
+/// NUMBER
+// - The Number object represents a numeric value.
 
-// Common Properties
-// String.fromCharCode(...codePoints): Creates a new string from the specified code points.
+// Common Properties:
+// Number.MAX_VALUE: The maximum positive number representable in JavaScript.
+// Number.MIN_VALUE: The minimum positive number representable in JavaScript.
+// Number.NaN: Represents "Not a Number".
+// Number.POSITIVE_INFINITY: Represents positive infinity.
+// Number.NEGATIVE_INFINITY: Represents negative infinity.
 
-// Common Methods
-// charAt(index): Returns the character at the specified index.
-// charCodeAt(index): Returns the Unicode code point of the character at the specified index.
-// concat(...strings): Concatenates the specified strings to the end of the string.
-// indexOf(searchValue, fromIndex): Returns the index of the first occurrence of the specified search value in the string.
-// lastIndexOf(searchValue, fromIndex): Returns the index of the last occurrence of the specified search value in the string.
-// length: Returns the length of the string.
-// replace(searchValue, newValue): Replaces the first occurrence of the specified search value with the specified new value.
-// slice(start, end): Extracts a substring from the string.
-// split(separator, limit): Splits the string into an array of substrings.
-// substring(start, end): Extracts a substring from the string.
-// toLowerCase(): Converts the string to lowercase.
-// toUpperCase(): Converts the string to uppercase.
-// trim(): Removes leading and trailing whitespace from the string.
-// trimStart(): Removes leading whitespace from the string.
-// trimEnd(): Removes trailing whitespace from the string.
+// Common Methods:
+// Number.isInteger(value): Checks if a value is an integer.
+// Number.parseFloat(string): Parses a string to a floating-point number.
+// Number.parseInt(string, radix): Parses a string to an integer.
 
 //
 //
 
-/// DATE
-// - The Date object represents a specific point in time. It provides methods to create, format, and manipulate dates.
+// REGEXP
+// The RegExp object represents regular expressions, which are patterns used to match text.
 
-// Common Properties
-// Date.now(): Returns the current time in milliseconds since the Unix epoch (January 1, 1970).
-// Date.UTC(year, month, day, hour, minute, second, millisecond): Creates a new Date object for a specific UTC time.
+// Common Properties:
+// RegExp.prototype.flags: A string containing the flags used in the regular expression.
 
-// Common Methods
-// getFullYear(): Returns the year (4 digits).
-// getMonth(): Returns the month (0-11).
-// getDate(): Returns the day of the month (1-31).
-// getHours(): Returns the hours (0-23).
-// getMinutes(): Returns the minutes (0-59).
-// getSeconds(): Returns the seconds (0-59).
-// getMilliseconds(): Returns the milliseconds (0-999).
-// getTime(): Returns the time in milliseconds since the Unix epoch.
-// setFullYear(year, month, day): Sets the year, month, and day.
-// setMonth(month, day): Sets the month and day.
-// setDate(day): Sets the day of the month.
-// setHours(hours, minutes, seconds, milliseconds): Sets the hours, minutes, seconds, and milliseconds.
-// setMinutes(minutes, seconds, milliseconds): Sets the minutes, seconds, and milliseconds.
-// setSeconds(seconds, milliseconds): Sets the seconds and milliseconds.
-// setMilliseconds(milliseconds): Sets the milliseconds.
-// getTimezoneOffset(): Returns the time zone offset in minutes from UTC.
-// toISOString(): Returns the date as an ISO 8601 string.
-// toDateString(): Returns the date as a human-readable string.
-// toTimeString(): Returns the time as a human-readable string.
+// Common Methods:
+// RegExp.prototype.test(string): Tests whether a string matches a regular expression.
+// RegExp.prototype.exec(string): Executes a search for a match in a string.
 
 //
 //
