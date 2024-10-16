@@ -84,11 +84,15 @@ const myFavDay = new Date();
 // Time Zone Awareness: Includes the time zone offset, making it suitable for handling dates and times across different regions.
 
 // Client-side
-const now = new Date();
-const isoString = now.toISOString();
 
-// Send isoString to the server
+// On the Client Side:
+// 1. Create a Date object representing the desired date and time.
+// 2. Use toISOString() to convert the Date object into an ISO 8601 string.
+// 3. Send the ISO 8601 string to the server in a request.
+
+const now = new Date();
+const isoStringClient = now.toISOString();
 
 // Server-side
-const date = new Date(isoString);
-console.log(date); // Output: 2023-12-31T23:59:59.999+00:00
+const isoStringServer = request.body.date;
+const date = new Date(isoString); // Output: 2023-12-31T23:59:59.999+00:00
