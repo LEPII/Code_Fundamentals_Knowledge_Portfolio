@@ -93,3 +93,50 @@ function areEqualObjects(address1, address2) {
 function areSameObjects(address1, address2) {
   return address1 === address2;
 }
+
+// 2. Blog Post Object
+
+// - Create an object with the properties being (title, body, author, views, comments(author, body), isLive-boolean ) with the object literal syntax to initialize objects.
+
+// using a constructor function
+
+// since initially views = 0, comments = empty array, and isLive is false, we can leave them out of the function's parameter. The more parameter a function has, the harder it gets to use it.
+const myBlog = new MyBlogPost("big", "beautiful", "doggies");
+
+console.log(myBlog);
+
+function MyBlogPost(title, body, author) {
+  this.title = title;
+  this.body = body;
+  this.author = author;
+  this.views = 0;
+  this.comments = [];
+  this.isLive = false;
+}
+
+// 3. Price Range Object
+
+let priceRanges = [
+  {
+    label: "$",
+    tooltip: "Inexpensive",
+    minPerPerson: 0,
+    minPerPerson: 100,
+  },
+  {
+    label: "$$",
+    tooltip: "Moderate",
+    minPerPerson: 101,
+    minPerPerson: 200,
+  },
+  {
+    label: "$$$",
+    tooltip: "Expensive",
+    minPerPerson: 201,
+    minPerPerson: 300,
+  },
+
+];
+
+let onlineStore = [{ averagePricePerPurchase: 50 }];
+
