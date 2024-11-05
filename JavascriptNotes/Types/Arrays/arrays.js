@@ -32,40 +32,37 @@ let emptyArray = new Array(5); // Creates an array with 5 empty elements
 //// Common Methods:
 
 /// ADDING ELEMENTS
-// .push(...elements)
-//Adds elements to the END of the array.
+// .push(...elements) - Adds elements to the END of the array.
 let fruits0 = ["apple", "banana"];
 fruits0.push("orange", "grape");
 console.log(fruits0); // Output: ["apple", "banana", "orange", "grape"]
 
-// .unshift(...elements)
-// Adds elements to the BEGINNING of the array.
+// .unshift(...elements) - Adds elements to the BEGINNING of the array.
 let fruits01 = ["apple", "banana"];
 fruits01.unshift("orange", "grape");
 console.log(fruits01); // Output: ["orange", "grape", "apple", "banana"]
 
-// .splice(start, deleteCount, ...items)
-// Removes elements from the array and inserts new elements.
+// .splice(start, deleteCount, ...items) - Removes elements from the array and inserts new elements.
 let fruits02 = ["apple", "banana", "orange", "grape"];
-// Remove two elements starting from index 1
-fruits02.splice(1, 2);
+
+fruits02.splice(1, 2); // Remove two elements starting from index 1
 console.log(fruits02); // Output: ["apple", "grape"]
-// Remove one element at index 0 and insert "kiwi" and "mango"
-fruits02.splice(0, 1, "kiwi", "mango");
+
+fruits02.splice(0, 1, "kiwi", "mango"); // Remove one element at index 0 and insert "kiwi" and "mango"
 console.log(fruits02); // Output: ["kiwi", "mango", "grape"]ango", "grape"]
 
 /// FINDING ELEMENTS (Primitive Types)
 // .indexOf(element, start);
-// Searches for the last occurrence of a specified element in an array.
-// Returns the index of the last occurrence if found, otherwise returns -1.
-// The start parameter (optional) specifies the index from which to start the search, searching backwards.
+// - Searches for the last occurrence of a specified element in an array.
+// - Returns the index of the last occurrence if found, otherwise returns -1.
+// - The start parameter (optional) specifies the index from which to start the search, searching backwards.
 let fruits = ["apple", "banana", "orange", "apple"];
-// Find the index of the first occurrence of "banana"
-let index1 = fruits.indexOf("banana");
-console.log(index1); // Output: 1
-// Find the index of the second occurrence of "apple"
+let index1 = fruits.indexOf("banana"); // Find the index of the first occurrence of "banana"
+
+console.log(index1); // Output: 1 // Find the index of the second occurrence of "apple"
 let index2 = fruits.indexOf("apple", 2);
 console.log(index2); // Output: 3
+
 // To check whether or not an element is in the array:
 console.log(fruits.indexOf(apple) !== -1); // Output: true
 
@@ -134,7 +131,7 @@ console.log(foundIndex); // Output: 1
 let longIndex = fruits05.findIndex((fruit) => fruit.length > 5);
 console.log(longIndex); // Output: 1
 
-/// DELETING ELEMENTS
+/// REMOVING ELEMENTS
 // .pop()
 // Removes the last element from an array and returns that element.
 let fruits06 = ["apple", "banana", "orange"];
@@ -161,14 +158,147 @@ console.log(removedFruits03); // Output: ["banana", "orange"]
 console.log(fruits08); // Output: ["apple", "grape"]
 
 // Remove one element at index 0 and insert "kiwi" and "mango"
-fruits08.splice(0, 1, "kiwi", "mango");
+fruits08.splice(0, 3, "kiwi", "mango");
 console.log(fruits08); // Output: ["kiwi", "mango", "grape"]
 
 /// EMPTYING AN ARRAY
 
-// .slice(start, end): Extracts a portion of the array.
-// .join(separator): Joins the elements of the array into a string.
+// Solution 1 - Reassignment to an Empty Array Literal
+let theArray = [0, 1, 2, 3];
+theArray = [];
+// Pros: Simple and straightforward. Efficient for complete emptying.
+// Cons: Doesn't modify the original array reference.
+
+// Solution 2 - Setting the Length Property to Zero
+theArray.length = 0;
+// Pros: Modifies the original array. Can be useful for certain operations, like resetting the array.
+// Cons: Less intuitive than reassignment. Might not be the most efficient method in all cases.
+
+// Solution 3 - Setting the Length Property to Zero
+theArray.splice(0, theArray.length);
+// Pros: Modifies the original array. Flexible for removing elements from specific indices.
+//Cons: Can be less efficient than other methods, especially for large arrays.
+
+// Additional Considerations:
+// Array References: If you have multiple references to the same array, modifying one will affect all references.
+// Memory Allocation: While emptying an array doesn't immediately free up memory, subsequent garbage collection will reclaim the unused space.
+
+// Solution 4 - Using the .pop() method - not recommended approach
+while (myArray.length > 0) {
+  myArray.pop();
+}
+
+// Pros: It's a straightforward approach that can be easy to understand.
+// Cons: Inefficient: The pop() method removes and returns the last element of the array. In a while loop, this operation is repeated until the array is empty, which can be less efficient than other methods. Array Modification: It directly modifies the original array, which might not be desirable in certain scenarios.
+
+/// COMBINING, SLICING & COPYING ARRAYS
+
+const first = [1, 2, 3];
+const second = [4, 5, 6];
+
+// COMBINING Arrays
+
+let third = first.concat(second);
+// OR
+let fourth = [...first, ...second];
+// can be customizable to where you want to add elements ex. let fourth = [...first, "a", ...second, "b", ...third];
+// Both Outputs: [1, 2, 3, 4, 5, 6]
+
+// SLICING Arrays
+third.slice(2, 4);
+// Output: [4, 5]
+
+// COPYING An Array
+copy1 = four.slice(); // no arguments on splice method will return a copy
+// OR
+copy2 = [...four];
+
+// The slice() method in JavaScript is a powerful tool for extracting a portion of an array into a new array. It's non-destructive, meaning it doesn't modify the original array.
+
+// How it Works:
+// - Creates a new array: A new array is created to hold the extracted elements.
+// - Copies elements: Elements from the original array, starting at the start index (inclusive) and up to, but not including, the end index, are copied to the new array.
+// - Negative Indices: You can use negative indices to count from the end of the array. For example, -1 refers to the last element, -2 to the second-to-last, and so on.
+// - Omitting Parameters: If you omit the end parameter, slice() will extract elements from the start index to the end of the array.
+// - Empty Array: If start is greater than or equal to the array's length, or if end is less than or equal to start, an empty array is returned.
+
+// Objects in Arrays: How Slice and Concat Work:
+// - When working with arrays of objects in JavaScript, slice() and concat() operate on the object references, not the objects themselves. This means they create shallow copies of the array, and each object in the new array will reference the same object in the original array. When you copy an object or array, you're essentially creating a new reference to the same underlying data structure. This is known as a shallow copy.
+
+// Spread Operator on Arrays
+// - The spread operator expands the array into individual elements, not creating a new array.
+// - It's a shallow copy, so changes to objects within the array will be reflected in both the original and copied arrays.
+// - For deep copying, you'll need to use techniques like JSON.parse(JSON.stringify()) or libraries like Lodash.
+
+// Shallow Copy vs. Deep Copy
+
+// Shallow Copy
+// - A shallow copy means that the new array contains references to the same objects as the original array. Any changes made to an object in one array will also be reflected in the other.
+// - Creates a new reference to the original object or array.
+// - Changes to the original object or array will be reflected in the copy and vice versa.
+// Use cases:
+// - When you want to create a new reference to an object or array without modifying the original.
+// - When you're sure that you won't be modifying the objects or arrays in either the original or the copy.
+
+// Deep Copy
+// - Creates a new object or array with copies of all the nested objects and arrays.
+// - Changes to the original object or array will not affect the copy and vice versa.
+// Use cases:
+// - When you want to create an independent copy of an object or array.
+// - When you want to modify the copy without affecting the original.
+// - When you're dealing with nested objects and arrays and want to ensure that changes to one don't affect the other.
+
+/// ITERATING ARRAYS
+
+const ages = [2, 10, 24, 49, 54];
+
+for (let age of ages) console.log(age);
+// Output: 2 10 24 49 54
+
 // .forEach(callback(element, index, array)): Calls a function for each element in the array.
+ages.forEach((age, index) => console.log(index, age));
+// Output: 0 2 1 10 2 24 3 49 4 54 // Outputs index next to elements
+
+/// JOINING ARRAYS
+// .join(separator): Joins the elements of the array into a string.
+ages.join("//")
+// Output: 2//10//24//49//54
+
+/// Creating URL Slugs with split() and join()
+// A URL slug is a keyword-rich identifier used in permalinks. It's typically derived from a longer piece of text, such as a title or article headline. To create a URL slug, we often need to:
+// - Convert text to lowercase:
+// - Remove special characters:
+// - Replace spaces with hyphens:
+
+function createSlug(title) {
+  // Convert the title to lowercase
+  const lowerCaseTitle = title.toLowerCase();
+
+  // Remove special characters and extra spaces
+  const cleanedTitle = lowerCaseTitle.replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ');
+
+  // Split the cleaned title into an array of words
+  const words = cleanedTitle.split(' ');
+
+  // Join the words with hyphens
+  const slug = words.join('-');
+
+  return slug;
+}
+
+// Example usage:
+const title = "This is a Sample Title with Special Characters!";
+const slug = createSlug(title);
+console.log(slug); // Output: this-is-a-sample-title-with-special-characters
+
+// Additional Considerations:
+
+// Word Length: Consider limiting the length of each word in the slug to avoid overly long URLs.
+// Duplicate Words: You might want to remove duplicate words or use a more sophisticated word frequency analysis.
+// Language-Specific Considerations: If you're dealing with non-Latin characters, you might need additional normalization steps, such as converting characters to their ASCII equivalents.
+// Custom Slug Generation Libraries: For more advanced slug generation, consider using libraries like slugify or slug. These libraries often provide more robust and flexible solutions, including handling various character encodings and language-specific rules.
+
+
 // .map(callback(element, index, array)): Creates a new array with the results of calling a function for each element in the array.
 // .filter(callback(element, index, array)): Creates a new array with elements that pass a test implemented by the provided function.
 // .reduce(callback(accumulator, currentValue, currentIndex, array), initialValue): Applies a function to an accumulator and each element in the array to reduce it to a single value.
