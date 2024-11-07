@@ -3,11 +3,30 @@
 // - Docs for Arrays - developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
 // - The Array object represents an ordered collection of elements.
 
+//// TABLE OF CONTENT
+
+//// Defining An Array
+
+//// Common Properties:
+//// -.length:
+
+//// Common Methods:
+/// - ADDING ELEMENTS
+/// - FINDING ELEMENTS (Primitive Types)
+/// - FINDING ELEMENTS (Reference Types)
+/// - REMOVING ELEMENTS
+/// - EMPTYING AN ARRAY
+/// - COMBINING, SLICING & COPYING ARRAYS
+/// - ITERATING ARRAYS
+/// - JOINING ARRAYS
+/// - SORTING ARRAYS
+/// - TESTING THE ELEMENTS OF AN ARRAYS
+
 const us = [1, 2];
 
 // us = []; // Outputs Variable due to being unable to reassign an array. // However, you can always modifying the contents of the array using dot notation as arrays are objects.
 
-//////// Defining An Array
+//// Defining An Array
 
 // 1. Array Literals
 let array1 = [1, 2, "hello", true]; // Array with mixed data types
@@ -260,9 +279,8 @@ ages.forEach((age, index) => console.log(index, age));
 // Output: 0 2 1 10 2 24 3 49 4 54 // Outputs index next to elements
 
 /// JOINING ARRAYS
+// .split(separator, limit): The split() method of String values takes a pattern and divides this string into an ordered list of substrings by searching for the pattern, puts these substrings into an array, and returns the array.
 // .join(separator): Joins the elements of the array into a string.
-ages.join("//")
-// Output: 2//10//24//49//54
 
 /// Creating URL Slugs with split() and join()
 // A URL slug is a keyword-rich identifier used in permalinks. It's typically derived from a longer piece of text, such as a title or article headline. To create a URL slug, we often need to:
@@ -275,13 +293,15 @@ function createSlug(title) {
   const lowerCaseTitle = title.toLowerCase();
 
   // Remove special characters and extra spaces
-  const cleanedTitle = lowerCaseTitle.replace(/[^a-z0-9 ]/g, '').replace(/\s+/g, ' ');
+  const cleanedTitle = lowerCaseTitle
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/\s+/g, " ");
 
   // Split the cleaned title into an array of words
-  const words = cleanedTitle.split(' ');
+  const words = cleanedTitle.split(" ");
 
   // Join the words with hyphens
-  const slug = words.join('-');
+  const slug = words.join("-");
 
   return slug;
 }
@@ -298,7 +318,96 @@ console.log(slug); // Output: this-is-a-sample-title-with-special-characters
 // Language-Specific Considerations: If you're dealing with non-Latin characters, you might need additional normalization steps, such as converting characters to their ASCII equivalents.
 // Custom Slug Generation Libraries: For more advanced slug generation, consider using libraries like slugify or slug. These libraries often provide more robust and flexible solutions, including handling various character encodings and language-specific rules.
 
+/// SORTING ARRAYS
+
+// Sorting Arrays: .sort(compareFn)
+
+// Basic Sorting:
+// - The sort() method sorts the elements of an array in place and returns the sorted array. By default, it sorts elements as strings in ascending alphabetical order.
+
+// Custom Sorting:
+// - To customize the sorting order, you can pass a comparison function as an argument to the sort() method. The comparison function should take two arguments (a and b) and return:
+
+// - A negative number if a should come before b
+// - A positive number if b should come before a
+// - Zero if a and b are considered equal
+
+// Sort numbers in descending order
+numbers.sort((a, b) => b - a);
+console.log(numbers); // Output: [9, 6, 5, 5, 5, 4, 3, 3, 2, 1, 1]
+// - Subtracting a from b: This comparison logic ensures that the smaller value comes first.
+// - Subtracting b from a: This comparison logic would reverse the order, making the larger value come first.
+
+// Sort strings by length
+let words = ["apple", "banana", "cherry", "date"];
+words.sort((a, b) => {
+  a.length - b.length;
+});
+console.log(words); // Output: ["date", "apple", "banana", "cherry"]
+
+// Sorting Arrays of Objects:
+// - To sort arrays of objects, you can specify a property to sort by within the comparison function:
+
+let myCrew = [
+  { name: "Batman", age: 26 },
+  { name: "Cat Woman", age: 25 },
+  { name: "BatDogX2", age: "0", comment: "Forever Young" },
+];
+
+// Sort by age in ascending order
+// - If one of the ages in the array of objects is a string, the sort() method will perform a lexicographical comparison, which means it will sort the strings alphabetically instead of numerically.
+myCrew.sort((a, b) => a.age - b.age);
+
+// In this case, the object with the age "0" might not be sorted correctly, as it will be compared as a string. To ensure correct numerical sorting, you can convert the ages to numbers before comparison:
+myCrew.sort((a, b) => Number(a.age) - Number(b.age));
+
+// Sort by name in alphabetical order
+myCrew.sort((a, b) => {
+  const nameA = a.name.toLowerCase();
+  const nameB = b.name.toLowerCase();
+
+  if (nameA < nameB) return -1;
+  if (nameA > nameB) return 1;
+});
+
+/// TESTING THE ELEMENTS OF AN ARRAYS
+
+// .every(callbackFn, thisArg)
+// - The every() method of Array instances tests whether ALL ELEMENTS in the array pass the test implemented by the provided function. It returns a Boolean value.
+// Return value
+// - true unless callbackFn returns a falsy value for an array element, in which case false is immediately returned.
+
+const myCrewAges = [25, 26, 0];
+
+const allPos = myCrewAges.every((value) => {
+  return value >= 0;
+});
+console.log(allPos);
+// Output: true
+
+// .some(callbackFn, thisArg)
+// - The some() method of Array instances tests whether AT LEAST ONE element in the array passes the test implemented by the provided function. It returns true if, in the array, it finds an element for which the provided function returns true; otherwise it returns false. It doesn't modify the array.
+// Return value
+// - false unless callbackFn returns a truthy value for an array element, in which case true is immediately returned.
+
+/// FILTERING AN ARRAY
+
+// .filter(callbackFn, thisArg)
+// - The filter() method of Array instances creates a shallow copy of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided function.
+// Return value
+// - A shallow copy of the given array containing just the elements that pass the test. If no elements pass the test, an empty array is returned.
+
+// Filtering by Property Value:
+const adults = myCrew.filter((person) => person.age >= 18);
+
+// Filtering by Type:
+const onlyNumbers = myCrew.filter((person) => typeof person.age === "number");
+
+// Filtering by Custom Predicate:
+
+// const oldest = myCrew.filter((value) => {
+//   value.age <= 26;
+// });
 
 // .map(callback(element, index, array)): Creates a new array with the results of calling a function for each element in the array.
-// .filter(callback(element, index, array)): Creates a new array with elements that pass a test implemented by the provided function.
 // .reduce(callback(accumulator, currentValue, currentIndex, array), initialValue): Applies a function to an accumulator and each element in the array to reduce it to a single value.
