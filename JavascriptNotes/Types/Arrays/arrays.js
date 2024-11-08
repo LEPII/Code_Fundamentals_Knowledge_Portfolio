@@ -21,6 +21,9 @@
 /// - JOINING ARRAYS
 /// - SORTING ARRAYS
 /// - TESTING THE ELEMENTS OF AN ARRAYS
+/// - FILTERING AN ARRAY
+/// - MAPPING AN ARRAY
+/// - REDUCING AN ARRAY
 
 const us = [1, 2];
 
@@ -44,11 +47,24 @@ let emptyArray = new Array(5); // Creates an array with 5 empty elements
 
 // Note: When using a single number, the array elements will be initialized to undefined.
 
-//// Common Properties:
+//// Common Properties
 
 // .length: The number of elements in the array.
 
-//// Common Methods:
+//// Common Methods
+
+// Iterative methods
+
+// Many array methods take a callback function as an argument. The callback function is called sequentially and at most once for each element in the array, and the return value of the callback function is used to determine the return value of the method. They all share the same signature:
+
+// method(callbackFn, thisArg);
+
+// Where callbackFn takes three arguments:
+// - element - The current element being processed in the array.
+// - index - The index of the current element being processed in the array.
+// - array - The array that the method was called upon.
+
+// What callbackFn is expected to return depends on the array method that was called.
 
 /// ADDING ELEMENTS
 // .push(...elements) - Adds elements to the END of the array.
@@ -393,7 +409,7 @@ console.log(allPos);
 /// FILTERING AN ARRAY
 
 // .filter(callbackFn, thisArg)
-// - The filter() method of Array instances creates a shallow copy of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided function.
+// - The filter() method of Array instances CREATES A SHALLOW COPY of a portion of a given array, filtered down to just the elements from the given array that pass the test implemented by the provided function.
 // Return value
 // - A shallow copy of the given array containing just the elements that pass the test. If no elements pass the test, an empty array is returned.
 
@@ -403,11 +419,55 @@ const adults = myCrew.filter((person) => person.age >= 18);
 // Filtering by Type:
 const onlyNumbers = myCrew.filter((person) => typeof person.age === "number");
 
-// Filtering by Custom Predicate:
+/// MAPPING AN ARRAY
 
-// const oldest = myCrew.filter((value) => {
-//   value.age <= 26;
-// });
+// .map(callbackFn, thisArg)
+// - The map() method of Array instances creates a new array populated with the results of calling a provided function on every element in the calling array.
+// Return value
+// - A new array with each element being the result of the callback function.
 
-// .map(callback(element, index, array)): Creates a new array with the results of calling a function for each element in the array.
-// .reduce(callback(accumulator, currentValue, currentIndex, array), initialValue): Applies a function to an accumulator and each element in the array to reduce it to a single value.
+const items = onlyNumbers.map((n) => `<li>${person.name} - ${person.age}</li>`);
+
+const html = "<ul>" + items.join("") + "</ul>";
+
+// You can also map values to objects
+
+const mappedObject = myCrewAges.map((n) => ({ theRealValue: n }));
+
+// You can also chain these methods
+
+const numbersExample = [-3, 5, 40, 3002];
+
+const chainedArrayMethods = numbersExample
+  .filter((n) => n > 0)
+  .map((n) => ({ theOGValues: n }))
+  .filter((obj) => obj.theOGValues > 30)
+  .map((obj) => obj.theOGValues);
+
+/// REDUCING AN ARRAY
+
+// .reduce(callbackFn, initialValue)
+
+// - The reduce() method of Array instances executes a user-supplied "reducer" callback function on each element of the array, in order, passing in the return value from the calculation on the preceding element. The final result of running the reducer across all elements of the array is a single value.  - The value could be anything.
+// - The first time that the callback is run there is no "return value of the previous calculation". If supplied, an initial value may be used in its place. Otherwise the array element at index 0 is used as the initial value and iteration starts from the next element (index 1 instead of index 0).
+// Return value
+// - The value that results from running the "reducer" callback function to completion over the entire array.
+
+const numbersEx = [3, 5, 6, 49];
+
+// Problem: We want to add all of these elements together;
+
+// Solution 1:
+
+let sum = 0;
+for (let n of numbersExs) sum += n;
+
+// Solution 2:
+
+// the callbackFn takes 2 Parameters:
+// accumulator or the initialValue - The value resulting from the previous call to callbackFn. On the first call, its value is initialValue if the latter is specified; otherwise its value is array[0].
+// currentValue - The value of the current element. On the first call, its value is array[0] if initialValue is specified; otherwise its value is array[1].
+
+const theReduceMethodSum = numbersEx.reduce(
+  (accumulator, currentValue) => accumulator + currentValue
+);
