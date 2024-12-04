@@ -54,3 +54,36 @@ const move = (array, index, offset) => {
 
 // 5. Counting Occurrences
 
+const numbs = [1, 2, 3, 4];
+
+const count = countOccurrences(numbers, 1);
+
+console.log(count);
+
+const countOccurrences = (array, searchElement) => {
+  let counter = 0;
+  for (let number of numbers) {
+    if (searchElement === number) ++counter;
+    return 0;
+  }
+};
+
+// 6. Get Max
+
+const allNumbs = [1, 2, 3, 4];
+
+const max = getMax(allNumbs);
+
+const getMax = (array) => {
+  let max = 0;
+
+  for (number of array) {
+    if (array.length === 0) {
+      return undefined;
+    } else if (number > max) {
+      max = number;
+      return max;
+    }
+    return max;
+  }
+};
