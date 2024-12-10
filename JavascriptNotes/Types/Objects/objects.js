@@ -3,13 +3,14 @@
 // - Objects are a collection a collection of {key: value} pairs.
 // - Object are dynamic by nature. Once they are created, we can always add new properties or methods or remove existing ones.
 
+// Using `const` , we cannot reassign the object itself but we could always change the object by adding/removing properties
+
 // - The `delete` keyword in JavaScript is used to remove properties from an object. When you use delete followed by an object and the property name, it attempts to remove the specified property from that object. If the property exists, it is successfully deleted. If the property doesn't exist or is non-configurable, the delete operation will return false.
+
 // Important Notes:
 // You cannot delete properties that are part of the object's prototype chain.
 // If the property is non-configurable (e.g., defined with Object.defineProperty with configurable: false), the delete operation will fail and return false.
 // Using delete can modify the object's structure, so use it with caution.
-
-// Using `const` , we cannot reassign the object itself but we could always change the object by adding/removing properties
 
 const MyFavoriteMcDonaldsOrder = {
   number: 6,
