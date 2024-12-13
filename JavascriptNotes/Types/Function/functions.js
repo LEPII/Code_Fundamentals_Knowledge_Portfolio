@@ -168,3 +168,22 @@ try {
 }
 
 console.log(tryCatch);
+
+
+//// Variable Scope 
+
+// A scope of a variable or constant, determines where that variable or constant is accessible. 
+// When we declare variable or constants with `let` or `const`,  their scope is limited to the {block} in which they are defined.  
+// Avoid defining global variable as it could lead to potential bugs. 
+// Declare variables at the beginning of their scope: This makes your code more readable and avoids potential hoisting-related problems.
+// `Use const for values that should not change: This helps maintain code correctness and prevents accidental modifications.`
+// While `let` and `const` declarations are indeed hoisted to the top of their scope, they are placed in a temporal dead zone (TDZ). This means that you cannot access them before their declaration.
+
+
+//// Let vs Var
+
+// When you declare a variable with var: 
+// - its scope is not limited to the block in which its defined
+// - its limited to the function 
+
+
