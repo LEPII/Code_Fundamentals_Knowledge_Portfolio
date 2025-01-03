@@ -1,4 +1,3 @@
-
 // Object Literals
 // Object Methods
 // Prototypes & Inheritance
@@ -8,75 +7,87 @@
 
 
 
-// The simplest way to create an object is using an object literal 
-const circle = { 
-   radius: 1, 
-   draw: function() {}
-}; 
-   
-// To create multiple objects with the same structure and behavior (methods), use a factory or a constructor. 
+// The simplest way to create an object is using an object literal
+const circle = {
+  radius: 1,
+  location: {
+    x: 42,
+    y: 34,
+  },
+  draw: function () {},
+};
 
-// Factory function 
-function createCircle(radius) { 
-   return {
-      radius, 
-      draw: function() {}
-   } 
-} 
+// To create multiple objects with the same structure and behavior (methods), use a factory or a constructor.
 
-// Constructor function 
-function Circle(radius) { 
-    this.radius = radius; 
-    this.draw = function() {}
-} 
-    
-// Every object has a "constructor" property which returns the function that was used to construct or create that object. 
+// Factory function
+function createCircle(radius) {
+  return {
+    radius,
+    draw: function () {},
+  };
+}
+
+// Constructor function
+function Circle(radius) {
+  this.radius = radius;
+  this.draw = function () {};
+}
+
+// Every object has a "constructor" property which returns the function that was used to construct or create that object.
 const x = {};
-x.constructor; // returns Object() 
-   
-// In JavaScript, functions are objects. They have properties and methods. 
-Circle.name; 
+x.constructor; // returns Object()
+
+// In JavaScript, functions are objects. They have properties and methods.
+Circle.name;
 Circle.length;
 Circle.constructor; // returns Function()
-Circle.call({}, 1); // to call the Circle function 
+Circle.call({}, 1); // to call the Circle function
 Circle.apply({}, [1]);
 
-// Value types are copied by their value, reference types are copied by their reference. 
+// Value types are copied by their value, reference types are copied by their reference.
 // Value types in JavaScript are: String, Number, Boolean, Symbol, undefined and null
-// Reference types are: Object, Function and Array 
-   
-// JavaScript objects are dynamic. You can add/remove properties: 
+// Reference types are: Object, Function and Array
+
+// JavaScript objects are dynamic. You can add/remove properties:
 circle.location = {};
-circle['location'] = {};
-                      
-delete circle.location; 
-                      
-// To enumerate the members in an object: 
+circle["location"] = {};
+
+delete circle.location;
+
+
+//// Enumerating Objects
+
+// To enumerate the members in an object:
+
+// Method 1 
 for (let key in circle) console.log(key, circle[key]);
 
-Object.keys(circle); 
-                      
-// To see if an object has a given property
-if ('location' in circle)
-                      
-// Abstraction means hiding the complexity/details and showing only the essentials. 
-// We can hide the details by using private members. Replace "this" with "let". 
+// Method 2 - cannot separate properties from methods
+Object.keys(circle);
 
-function Circle(radius) { 
-   // Public member 
-   this.radius = radius; 
+// To see IF an object has a given property / method 
+if ("location" in circle)
+  // Abstraction means hiding the complexity/details and showing only the essentials.
+  // We can hide the details by using private members. Replace "this" with "let".
 
-   // Private member                       
-   let defaultLocation = {};                      
-}                       
+  function Circle(radius) {
+    // Public member
+    this.radius = radius;
+
+    // Private member
+    let defaultLocation = {};
+  }
 
 // To define a getter/setter, use Object.defineProperty():
 
-Object.defineProperty(this, 'defaultLocation', {
-    get: function() { return defaultLocation; },
-    set: function(value) { defaultLocation = value; }
+Object.defineProperty(this, "defaultLocation", {
+  get: function () {
+    return defaultLocation;
+  },
+  set: function (value) {
+    defaultLocation = value;
+  },
 });
-
 
 // Getters and Setters in JavaScript
 // Getters and setters are special methods in JavaScript that provide a way to control access to object properties. They allow you to define custom logic for retrieving or setting property values, offering greater flexibility and encapsulation.

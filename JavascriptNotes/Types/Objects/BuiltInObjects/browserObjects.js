@@ -17,7 +17,6 @@
 // setInterval: Executes a function repeatedly at a specified interval.
 // requestAnimationFrame: Efficiently schedules function calls to be executed before the next repaint.
 // Performance: Provides performance metrics, such as timing information and memory usage.
-
 // Storage Objects
 // localStorage: Stores data persistently in the user's browser, even after the browser is closed.
 // sessionStorage: Similar to localStorage, but data is only stored for the duration of the current browser session.
