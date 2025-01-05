@@ -1,23 +1,19 @@
 //// OBJECTS
 
 //// Table Of Content
-//// - General Notes
-//// - Defining An Object
-//// - Accessing / Deleting Properties
-//// - Enumerating Properties
-//// - Primitive / Value Types
-//// - Cloning An Object
-//// - Default Methods on Objects
-//// - Garbage Collection
 
-//// General Notes
+//// - GENERAL NOTES ////
+//// - DEFINING AN OBJECT
+//// - ACCESSING PROPERTIES
+//// - CONSTRUCTOR PROPERTY
+//// - ENUMERATING PROPERTIES
+//// - PRIMITIVE / VALUE TYPES
+//// - CLONING AN OBJECT
+//// - SHALLOW VS DEEP COPY
+//// - GETTERS / SETTERS
+//// - DEFAULT METHODS ON OBJECTS
 
-// - Objects are a collection a collection of {key: value} pairs.
-// - Object are dynamic by nature. Once they are created, we can always add new properties or methods or remove existing ones.
-
-/// Constructor Property
-// Every object in JS has a property called `constructor`, and that references the function that was used to construct or create that object.
-// When you create an object using the object literal syntax, internally the JS engine uses the Object() constructor function.
+//// GENERAL NOTES
 
 const MyFavoriteMcDonaldsOrder = {
   number: 6,
@@ -38,26 +34,56 @@ MyFavoriteMcDonaldsOrder.sides();
 MyFavoriteMcDonaldsOrder.favoriteBurger = "Big Mac";
 console.log(MyFavoriteMcDonaldsOrder.favoriteBurger);
 
-//// Defining An Object
+// - Objects are a collection a collection of {key: value} pairs.
+// - Object are dynamic by nature. Once they are created, we can always add new properties or methods or remove existing ones.
+
+MyFavoriteMcDonaldsOrder.location = {};
+MyFavoriteMcDonaldsOrder["location"] = {};
+
+delete MyFavoriteMcDonaldsOrder; // location  or sides - could be property or method.
+
+// - The `delete` keyword in JavaScript is used to remove properties from an object.
+// When you use delete followed by an object and the property name, it attempts to remove the specified property from that object. If the property exists, it is successfully deleted. If the property doesn't exist or is non-configurable, the delete operation will return false.
+
+// Important Side Notes:
+// - You cannot delete properties that are part of the object's prototype chain.
+// - If the property is non-configurable (e.g., defined with Object.defineProperty with configurable: false), the delete operation will fail and return false.
+// - Using delete can modify the object's structure, so use it with caution.
+
+//// Public vs Private Members - Abstraction
+
+// Abstraction means hiding the complexity/details and showing only the essentials.
+// We can hide the details by using private members. Replace "this" with "let".
+
+function Circle(radius) {
+  // Public member
+  this.radius = radius;
+
+  // Private member
+  let defaultLocation = {};
+}
+
+//// DEFINING OBJECTS ////
 
 /// 1. Object literal
-
-// Explanation: Directly defines properties and values within curly braces.
-// Pros: Simple, concise, and commonly used.
-// Cons: Limited for creating complex objects with methods or inheritance.
 
 const myExAvi = {
   name: "Lui", // can be any type of value.
   age: 30,
   city: "New York",
+  radius: 1,
+  location: {
+    x: 42,
+    y: 34,
+  },
+  draw: function () {},
 };
 
-/// 2.1 Factory Function
+// Explanation: Directly defines properties and values within curly braces.
+// Pros: Simple, concise, and commonly used.
+// Cons: Limited for creating complex objects with methods or inheritance.
 
-// Regular functions: They are defined using the function keyword.
-// Return objects: They return a new object with properties and methods directly within the function body.
-// Flexible: They allow for more dynamic object creation, as properties and methods can be added or modified at runtime.
-// Less formal: They don't follow a specific syntax or pattern.
+/// 2. Factory Function
 
 function createObject(property1, property2, property3) {
   return {
@@ -67,15 +93,33 @@ function createObject(property1, property2, property3) {
     eatFood: function () {
       console.log("eat");
     },
+    radius,
+    draw: function () {},
   };
 }
 
 const exampleObj1 = createObject(1, 2, 3).eatFood();
 
+// To create multiple objects with the same structure and behavior (methods), use a factory or a constructor.
+// Return objects: They return a new object with properties and methods directly within the function body.
+// Flexible: They allow for more dynamic object creation, as properties and methods can be added or modified at runtime.
+// Less formal: They don't follow a specific syntax or pattern.
+
 // To make the object dynamic, we pass them in within the values as properties.
 // A short-hand way of writing if the key & value are the same by simply adding the key like in ^ property3
 
-/// 2.2 Constructor Function
+/// 3. Constructor Function
+
+function Person(name, age, city) {
+  this.name = name;
+  this.age = age;
+  this.city = city;
+  this.drive = function () {
+    console.log("drive");
+  };
+}
+
+const myExAvi2 = new Person("Lui", 30, "New York");
 
 // They are defined using the function keyword, but with a capital letter convention. You create a function that acts as a blueprint for creating objects.
 
@@ -93,20 +137,9 @@ const exampleObj1 = createObject(1, 2, 3).eatFood();
 
 // `this` keyword: They use the this keyword to refer to the newly created object within the function body.
 // Here's a breakdown of what typically happens:
-// this Binding: Without new, the this keyword inside the constructor function is not automatically bound to a new object. Instead, it usually refers to the global object (e.g., window in a browser environment).
-// Property Assignment: Any properties assigned using this within the constructor will be added to the global object, potentially overwriting existing properties.
-// Return Value: The constructor function itself will return undefined unless explicitly specified otherwise.
-
-function Person(name, age, city) {
-  this.name = name;
-  this.age = age;
-  this.city = city;
-  this.drive = function () {
-    console.log("drive");
-  };
-}
-s;
-const myExAvi2 = new Person("Lui", 30, "New York");
+// 1. this Binding: Without new, the this keyword inside the constructor function is not automatically bound to a new object. Instead, it usually refers to the global object (e.g., window in a browser environment).
+// 2. Property Assignment: Any properties assigned using this within the constructor will be added to the global object, potentially overwriting existing properties.
+// 3. Return Value: The constructor function itself will return undefined unless explicitly specified otherwise.
 
 /// 3. Class syntax
 
@@ -163,16 +196,7 @@ const myExAvi6 = Object.assign(
   { city: "New York" }
 );
 
-//// Accessing / Deleting Properties
-
-// - The `delete` keyword in JavaScript is used to remove properties from an object. When you use delete followed by an object and the property name, it attempts to remove the specified property from that object. If the property exists, it is successfully deleted. If the property doesn't exist or is non-configurable, the delete operation will return false.
-
-delete MyFavoriteMcDonaldsOrder.number; // or sides - could be property or method.
-
-// Important Side Notes:
-// You cannot delete properties that are part of the object's prototype chain.
-// If the property is non-configurable (e.g., defined with Object.defineProperty with configurable: false), the delete operation will fail and return false.
-// Using delete can modify the object's structure, so use it with caution.
+//// ACCESSING PROPERTIES
 
 // There are several ways to access properties and values of an object in JavaScript:
 
@@ -235,12 +259,17 @@ console.log(values); // Output: ["Sam", 30]
 const entries = Object.entries(person567);
 console.log(entries); // Output: [["name", "Alice"], ["age", 30]]
 
-//// The Constructor Property in JavaScript
+//// CONSTRUCTOR PROPERTY
 
 // The constructor property is a built-in property of objects in JavaScript that {references the function used to create the object.} It essentially points back to the constructor function that was used to instantiate the object.
+// When you create an object using the object literal syntax, internally the JS engine uses the Object() constructor function.
 
 // Accessing the Constructor Property
 // You can access the constructor property of an object using dot notation:
+
+// Every object has a "constructor" property which returns the function that was used to construct or create that object.
+const xy = {};
+x.constructor; // returns Object()
 
 function Animal(name) {
   this.name = name;
@@ -258,7 +287,9 @@ const dog = new Dog(
 console.log(dog.constructor); // Output: Dog
 console.log(dog instanceof Animal); // Output: true
 
-//// - Enumerating Properties
+//// - ENUMERATING PROPERTIES
+
+// To enumerate the members in an object you can either loop through the properties or use the .keys method.
 
 function EnumeratingProperties(argument) {
   this.exampleArgument = argument;
@@ -269,32 +300,47 @@ function EnumeratingProperties(argument) {
 
 const enumProperty = new EnumeratingProperties(5);
 
+// Method 1
+
 for (let key in enumProperty) {
-  //if (typeof enumProperty[key] !== "function") to filter properties only and not methods
+  // - To filter properties only and not methods
+  // if (typeof enumProperty[key] !== "function")
+
+  // - To see IF an object has a given property / method
+  // if ("location" in enumProperty)
+
   console.log(key, enumProperty[key]);
 }
-//outputs:
+// outputs:
 // exampleArgument 5
 // exampleMethod f () { console.log("random");}
 
-/// Primitive / Value Types vs Reference Types
+// Method 2 - Object.keys
+// returns an array
+// cannot separate properties from methods
 
-/// Key Differences:
+const keysExample = Object.keys(enumProperty);
+// ["exampleArgument", "exampleMethod"]
 
-// Primitives / Value Types - COPIED : When you assign a primitive/value type to a variable, the variable stores a copy of the value. Changes to one variable do not affect the other. In other words, they are copied by their value.
-// Reference Types - REFERENCED: When you assign a reference type to a variable, the variable stores a reference to the object in memory. Changes to one variable can affect the other if they refer to the same object. In other words, reference types / objects are copied by their reference.
+/// PRIMITIVE/VALUE TYPES VS REFERENCE TYPES
 
-// Value types
-let x = 10;
-let y = x;
+/// Key Differences: Value/Primitive types are copied by their value, reference types are copied by their reference.
+
+// Primitives / Value Types - COPIED
+// Value types in JavaScript are:
+// - String
+// - Number
+// - Boolean
+// - Symbol
+// - undefined
+// - null
+
+let xay = 10;
+let y = xay``;
 y = 20;
-console.log(x); // Output: 10
+console.log(xay); // Output: 10
 
-// Reference types
-let person19 = { name: "Bobby" };
-let person20 = person19;
-person20.name = "Rocky";
-console.log(person19.name); // Output: Rocky
+//  : When you assign a primitive/value type to a variable, the variable stores a copy of the value. Changes to one variable do not affect the other. In other words, they are copied by their value.
 
 // JavaScript has built-in constructors for all value types:
 // Number(): Creates a new number object.
@@ -310,6 +356,19 @@ console.log(person19.name); // Output: Rocky
 // Wrapper Objects: However, JavaScript automatically wraps primitive values in corresponding wrapper objects when you access their properties or methods. These wrapper objects have a constructor property that points to the corresponding built-in constructor.
 // Constructor functions in JavaScript have several built-in methods and properties that provide additional functionality and flexibility.
 
+// Reference Types - REFERENCED
+// Reference types are:
+// - Object
+// - Functions
+// - Arrays
+
+let person19 = { name: "Bobby" };
+let person20 = person19;
+person20.name = "Rocky";
+console.log(person19.name); // Output: Rocky
+
+// When you assign a reference type to a variable, the variable stores a reference to the object in memory. Changes to one variable can affect the other if they refer to the same object. In other words, reference types / objects are copied by their reference.
+
 /// Reference Type
 // Object(): Represents a collection of key-value pairs.
 // Array(): Represents an ordered collection of values.
@@ -317,7 +376,7 @@ console.log(person19.name); // Output: Rocky
 // Date(): Represents a specific point in time.
 // RegExp(): Represents a regular expression pattern.
 
-/// Cloning An Object
+//// CLONING OBJECTS
 
 const randomObj2 = {
   myNum: 3,
@@ -328,12 +387,15 @@ const favoriteMeal = {};
 
 /// Methods for Cloning Objects
 
+// Method 1
 // - for...in loop: This is the method used in the example. It iterates over the properties of the original object and creates new properties in the new object with the same keys and values.
 
+// Method 2
 // - Spread operator (...): This is a concise way to create a shallow copy of an object. For example: const newObject = { ...originalObject };
 
 const another = { ...randomObj2 };
 
+// Method 3
 // - Object.assign(): This method can be used to create a shallow copy or a deep copy depending on how it's used. To create a shallow copy;. To create a deep copy, you'll need to implement a custom function or use a library that provides deep cloning functionality.
 
 const newObject = Object.assign(
@@ -347,7 +409,7 @@ const newObject = Object.assign(
 
 // - JSON.parse(JSON.stringify()): This method can also be used to create a deep copy of an object, but it's less efficient than other methods and may not handle all object types correctly.
 
-//// Shallow vs. Deep Copy:
+//// SHALLOW VS DEEP COPY
 
 // A shallow copy of an object creates a new object with the same properties and values. However, if the original object contains nested objects or arrays, the shallow copy will reference the same nested objects or arrays. This means that changes made to the nested objects or arrays in the original object will also be reflected in the shallow copy.
 
@@ -355,7 +417,40 @@ const newObject = Object.assign(
 
 // The principle of shallow and deep copies applies to all types in JavaScript, but it's particularly relevant for objects and arrays due to their potential to contain nested structures.
 
-//// Default Methods on Objects
+//// GETTERS / SETTERS - Encapsulation
+
+// To define a getter/setter, use Object.defineProperty():
+
+// The Object.defineProperty() static method defines a new property directly on an object, or modifies an existing property on an object, and returns the object.
+// Object.defineProperty(obj, property, descriptor)
+
+function GettersAndSetters() {
+  Object.defineProperty(this, "defaultLocation", {
+    get: function () {
+      return defaultLocation;
+    },
+    set: function (value) {
+      defaultLocation = value;
+    },
+  });
+
+  Object.defineProperty(this, "property1", {
+    value: 42,
+    writable: false,
+  });
+}
+
+// Getters and Setters in JavaScript
+// Getters and setters are special methods in JavaScript that provide a way to control access to object properties. They allow you to define custom logic for retrieving or setting property values, offering greater flexibility and encapsulation.
+
+// When to Use Getters and Setters
+// Encapsulation: To hide the implementation details of property access.
+// Validation: To validate values before setting them to a property.
+// Calculation: To calculate a property value based on other properties.
+// Caching: To cache calculated values for performance optimization.
+// Data Transformation: To transform data before returning it or setting it.
+
+//// DEFAULT METHODS ON OBJECTS
 
 apply(thisArg, [args]);
 // Calls a function with a given this value and an array of arguments.
@@ -371,11 +466,3 @@ call(thisArg, args);
 
 toString();
 // Returns a string representation of the function
-
-//// Garbage Collection
-
-// JavaScript handles memory management automatically through a process called garbage collection. This means that the JavaScript engine is responsible for tracking objects and determining when they are no longer in use. When an object becomes unreachable, the garbage collector frees up the memory it occupies.
-
-// Reference Counting: JavaScript often uses a technique called reference counting. Every object keeps track of the number of references pointing to it. When an object's reference count reaches zero, it becomes unreachable and is marked for deletion.
-
-// Mark and Sweep: Another common method is mark and sweep. The garbage collector periodically scans the memory heap, marking reachable objects. Objects that are not marked are considered garbage and are reclaimed.

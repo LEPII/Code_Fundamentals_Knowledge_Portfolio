@@ -1,10 +1,13 @@
-///// ADVANCE JS NOTES 
+///// ADVANCE JS NOTES
 
 // "The best functions are those with no parameters" - Robert C Martin
 
-//// The 4 Pillars of Object-oriented Programming:
+//// Table Of Content
+//// THE 4 PILLARS OF OOP
 
-/// Abstraction => Reduce complexity + isolate impact of changes 
+//// THE 4 PILLARS OF OOP ////
+
+/// Abstraction => Reduce complexity + isolate impact of changes
 /// Encapsulation => Reduce complexity + increase usability
 /// Inheritance => Eliminates Redundant Code
 /// Polymorphism => Refactor ugly switch/case statements

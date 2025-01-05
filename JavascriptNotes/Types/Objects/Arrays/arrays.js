@@ -6,11 +6,6 @@
 //// TABLE OF CONTENT
 
 //// Defining An Array
-
-//// Common Properties:
-//// -.length:
-
-//// Common Methods:
 /// - ADDING ELEMENTS
 /// - FINDING ELEMENTS (Primitive Types)
 /// - FINDING ELEMENTS (Reference Types)
@@ -24,6 +19,9 @@
 /// - FILTERING AN ARRAY
 /// - MAPPING AN ARRAY
 /// - REDUCING AN ARRAY
+
+//// Common Properties:
+//// -.length:
 
 const us = [1, 2];
 
