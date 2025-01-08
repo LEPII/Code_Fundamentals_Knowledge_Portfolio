@@ -5,6 +5,7 @@
 //// - Concept
 //// - Superclass
 //// - Prototypes
+//// - Instance Members vs Prototype Members
 //// - Attributes
 
 //// Concept ////
@@ -52,6 +53,59 @@ Object.getPrototypeOf(x) === Object.getPrototypeOf(y); // returns true
 // Constructors have a "prototype" property. It returns the object that will be used as the prototype for objects created by the constructor.
 Object.prototype === Object.getPrototypeOf({});
 Array.prototype === Object.getPrototypeOf([]);
+
+//// Instance Members vs Prototype Members  ////
+
+// - Instance Members
+
+function InstanceMember(dog) {
+  this.dog = dog; // Instance member
+}
+
+const pet1 = new InstanceMember("Lily");
+const pet2 = new InstanceMember("Patico");
+
+console.log(pet1.dog); // Output: "Lily"
+console.log(pet2.dog); // Output: "Patico"
+
+// Definition:
+// Properties and methods that belong to a specific instance (object) of a class or constructor function.
+// They are created within the constructor function's body using this.
+
+// Benefits:
+// Unique Values: Each instance has its own copy of the instance member, allowing for unique values for each object.
+// Data Privacy (to some extent): While not true encapsulation, instance members are less directly accessible from outside the object compared to prototype members.
+
+// - Prototype Members
+
+function PrototypeMember(name) {
+  this.name = name;
+}
+
+PrototypeMember.prototype.greet = function () {
+  console.log("Hello, my pet's name is " + this.name); // <= prototype member
+};
+
+const pet3 = new Person("Lily");
+const pet4 = new Person("Pa");
+
+pet3.greet(); // Output: "Hello, my name is Alice"
+pet4.greet();
+
+// Definition:
+// Properties and methods that are shared among all instances of a class or constructor function.
+// They are added to the prototype property of the constructor function.
+
+// Benefits:
+// Memory Efficiency: Prototype members are shared among all instances, saving memory.
+// Code Reusability: Avoids code duplication by defining methods and properties only once on the prototype.
+// Flexibility: Changes to prototype members affect all instances of the class.
+
+// - You can also overwrite methods
+
+PrototypeMember.prototype.toString = function () {
+  return "Pet with this" + this.name;
+};
 
 //// Attributes ////
 
