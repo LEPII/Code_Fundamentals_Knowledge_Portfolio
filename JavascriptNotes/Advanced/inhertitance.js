@@ -6,6 +6,7 @@
 //// - Superclass
 //// - Prototypes
 //// - Instance Members vs Prototype Members
+//// - Iterating Instance and Prototype Members
 //// - Attributes
 
 //// Concept ////
@@ -58,6 +59,14 @@ Array.prototype === Object.getPrototypeOf([]);
 
 // - Instance Members
 
+// Definition:
+// Properties and methods that belong to a specific instance (object) of a class or constructor function.
+// They are created within the constructor function's body using `this`.
+
+// Benefits:
+// Unique Values: Each instance has its own copy of the instance member, allowing for unique values for each object.
+// Data Privacy (to some extent): While not true encapsulation, instance members are less directly accessible from outside the object compared to prototype members.
+
 function InstanceMember(dog) {
   this.dog = dog; // Instance member
 }
@@ -68,16 +77,17 @@ const pet2 = new InstanceMember("Patico");
 console.log(pet1.dog); // Output: "Lily"
 console.log(pet2.dog); // Output: "Patico"
 
-// Definition:
-// Properties and methods that belong to a specific instance (object) of a class or constructor function.
-// They are created within the constructor function's body using this.
-
-// Benefits:
-// Unique Values: Each instance has its own copy of the instance member, allowing for unique values for each object.
-// Data Privacy (to some extent): While not true encapsulation, instance members are less directly accessible from outside the object compared to prototype members.
-
 // - Prototype Members
 
+// Definition:
+// Properties and methods that are shared among all instances of a class or constructor function.
+// They are added to the prototype property of the constructor function.
+// YOU SHOULD NOT MODIFY OBJECTS YOU DONT OWN 
+
+// Benefits:
+// Memory Efficiency: Prototype members are shared among all instances, saving memory.
+// Code Reusability: Avoids code duplication by defining methods and properties only once on the prototype.
+// Flexibility: Changes to prototype members affect all instances of the class.
 function PrototypeMember(name) {
   this.name = name;
 }
@@ -92,20 +102,55 @@ const pet4 = new Person("Pa");
 pet3.greet(); // Output: "Hello, my name is Alice"
 pet4.greet();
 
-// Definition:
-// Properties and methods that are shared among all instances of a class or constructor function.
-// They are added to the prototype property of the constructor function.
-
-// Benefits:
-// Memory Efficiency: Prototype members are shared among all instances, saving memory.
-// Code Reusability: Avoids code duplication by defining methods and properties only once on the prototype.
-// Flexibility: Changes to prototype members affect all instances of the class.
-
 // - You can also overwrite methods
 
 PrototypeMember.prototype.toString = function () {
   return "Pet with this" + this.name;
 };
+
+// - 1. Instance Members Referencing Prototype Members:
+// Direct Access: Instance members can directly access prototype members using the this keyword within their scope.
+
+function Dolphins(name) {
+  this.name = name;
+
+  this.introduce = function () {
+    console.log("Hello, I am " + this.name + ". " + this.getFullInfo());
+  };
+}
+
+Dolphins.prototype.getFullInfo = function () {
+  return "I am a person.";
+};
+
+const person1 = new Person("Tua");
+person1.introduce(); // Output: "Hello, I am Tua. I am a person."
+
+// - 2. Prototype Members Referencing Instance Members:
+// Indirect Access: While prototype members cannot directly access instance members of a specific object, they can access them within the context of a method call on an instance.
+
+function Game(name) {
+  this.name = name;
+  this.age = 25;
+}
+
+Game.prototype.compareAge = function (otherGame) {
+  if (this.age > otherGame.age) {
+    return `${this.name} is older than ${otherGame.name}`;
+  } else {
+    return `${this.name} is newer than ${otherGame.name}`;
+  }
+};
+
+const game1 = new Game("TLOU");
+const game2 = new Game("COD");
+console.log(game1.compareAge(game2));
+
+//// Iterating Instance and Prototype Members  ////
+
+// 1. Object.keys() only returns instance members 
+
+// 2. For In loop gets all members (both instance and prototype) 
 
 //// Attributes ////
 
