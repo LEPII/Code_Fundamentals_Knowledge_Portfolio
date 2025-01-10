@@ -137,7 +137,7 @@ const myExAvi2 = new Person("Lui", 30, "New York");
 
 // `this` keyword: They use the this keyword to refer to the newly created object within the function body.
 // Here's a breakdown of what typically happens:
-// 1. this Binding: Without new, the this keyword inside the constructor function is not automatically bound to a new object. Instead, it usually refers to the global object (e.g., window in a browser environment).
+// 1. this Binding: Without new, the this keyword inside the constructor function is not automatically bound to a new object. Instead, it usually refers to the global object (e.g., window in browser & global in node).
 // 2. Property Assignment: Any properties assigned using this within the constructor will be added to the global object, potentially overwriting existing properties.
 // 3. Return Value: The constructor function itself will return undefined unless explicitly specified otherwise.
 
