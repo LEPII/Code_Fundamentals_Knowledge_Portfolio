@@ -7,10 +7,10 @@
 
 //// THE 4 PILLARS OF OOP ////
 
-/// Abstraction => Reduce complexity + isolate impact of changes
-/// Encapsulation => Reduce complexity + increase usability
-/// Inheritance => Eliminates Redundant Code
-/// Polymorphism => Refactor ugly switch/case statements
+/// Abstraction => "Focus on essentials, hide complexity."  Simplify
+/// Encapsulation => "Data and behavior bundled together, control access." Maintainability / Security
+/// Inheritance => "Create new classes from existing ones, reuse code." Reusability / Extensibility  
+/// Polymorphism => "Many Forms -  objects can be treated as different types." Flexibility / Dynamic 
 
 /// Abstraction
 // Concept:
