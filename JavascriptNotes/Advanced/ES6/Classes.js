@@ -149,4 +149,79 @@ class SymbolClass {
   [_method1]() {}
 }
 
+// Object.getOwnPropertySymbols(myObject)
+// getOwnPropertySymbols - This method returns an array of all symbol properties of the myObject instance.
+
 /// Private Members - Approach 2/2 - WeakMaps ///
+
+// - A WeakMap is a special type of object in JavaScript that stores key-value pairs.
+// - The key of each pair must be an object.
+// - The most crucial difference between a WeakMap and a regular Map is that keys in a WeakMap are weakly held.
+//    - weakly held meaning when an object used as a key in a WeakMap is no longer referenced anywhere else in your code, it becomes eligible for garbage collection.
+//    - This means that the key-value pair associated with that object in the WeakMap will also be automatically removed.
+
+// Key Characteristics of WeakMaps
+
+// - Keys must be objects: You cannot use strings, numbers, or other primitive values as keys in a WeakMap.
+// - No iteration: You cannot directly iterate over the keys or values of a WeakMap using methods like forEach or keys(). This is because the keys might be garbage collected at any time, making iteration unreliable.
+// - Size is not trackable: You cannot determine the number of key-value pairs in a WeakMap using the size property.
+
+// Example #1
+
+const weakmap = new WeakMap(); // Creates WeakMap
+
+const obj1 = {};
+const obj2 = {};
+
+weakmap.set(obj1, "value1"); // Set key-value pairs
+weakmap.set(obj2, "value2");
+
+// Example #2
+
+class MyClass {
+  constructor() {
+    this._privateData = new WeakMap();
+  }
+
+  setData(key, value) {
+    this._privateData.set(key, value);
+  }
+
+  getData(key) {
+    return this._privateData.get(key);
+  }
+}
+
+// Usage:
+const obj3 = {};
+const obj4 = {};
+
+const myInstance = new MyClass();
+
+myInstance.setData(obj3, "data for obj3");
+myInstance.setData(obj4, "data for obj4");
+
+console.log(myInstance.getData(obj3)); // Output: "data for obj3"
+
+// If obj1 is no longer referenced, the data associated with it will be garbage collected.
+
+// Having All Private Members in a Single WeakMap
+
+// Pros:
+// Simplicity
+// Reduced Overhead
+
+// Cons:
+// Reduced Privacy
+// Less Granular Control
+
+// In Summary:
+// Choose splitting into separate WeakMaps when:
+// - Strong privacy and isolation of private data are critical.
+// - Code maintainability and organization are paramount.
+// - You anticipate frequent changes or removals of specific sets of private data.
+
+// Choose a single WeakMap when:
+// - Simplicity and performance are prioritized.
+// - The risk of unintended data access is minimal.
+// - Managing multiple WeakMaps adds unnecessary complexity.
