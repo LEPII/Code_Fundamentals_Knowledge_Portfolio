@@ -8,6 +8,7 @@
 //// - Static vs Instance Methods
 //// - Strict Mode
 //// - Private Members
+//// - Inheritance In Classes
 
 // Syntactic Sugar - At their core, JavaScript classes are essentially syntactic sugar over the existing prototype-based inheritance system. They provide a more familiar and cleaner syntax for creating objects and managing their behavior.
 // Blueprint for Objects - A class acts as a blueprint or template for creating objects. It defines the properties and methods that objects created from that class will have.
@@ -225,3 +226,33 @@ console.log(myInstance.getData(obj3)); // Output: "data for obj3"
 // - Simplicity and performance are prioritized.
 // - The risk of unintended data access is minimal.
 // - Managing multiple WeakMaps adds unnecessary complexity.
+
+//// Inheritance In Classes ////
+
+class Dog {
+  constructor(name, vaccinated, groomed) {
+    this.name = name;
+    this.vaccinated = vaccinated;
+    this.groomed = groomed;
+  }
+
+  birth(numAmountOfPuppies) {
+    console.log(`See gave birth to ${numAmountOfPuppies} puppies`);
+  }
+}
+
+class Puppy extends Dog {
+  constructor(name, vaccinated, groomed, barkedAtNeighborToday) {
+    super(name, vaccinated, groomed);
+    this.barkedAtNeighborToday = barkedAtNeighborToday;
+  }
+}
+
+const mySillyDog1 = new Puppy("Lily", true, true, true);
+
+console.log(mySillyDog1.name); // Output: Lily
+console.log(mySillyDog1.vaccinated); // Output: true
+mySillyDog1.birth(35); // "See gave birth to 35 puppies"
+
+// - Order of Arguments: Make sure the arguments passed to super() in the subclass constructor match the order of parameters in the superclass constructor.
+// - Property Shadowing: If a subclass defines a property with the same name as a property in the superclass, the subclass property will "shadow" the superclass property within the subclass.

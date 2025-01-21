@@ -12,6 +12,8 @@
 //// Debugging - browser developer tools
 //// Performance Optimization
 
+//
+
 //// Computed Property Names ////
 
 // In JavaScript, computed property names allow you to dynamically create object property names using expressions within square brackets [].
