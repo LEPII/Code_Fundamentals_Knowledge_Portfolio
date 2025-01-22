@@ -9,6 +9,7 @@
 //// - Strict Mode
 //// - Private Members
 //// - Inheritance In Classes
+//// - Method Overriding
 
 // Syntactic Sugar - At their core, JavaScript classes are essentially syntactic sugar over the existing prototype-based inheritance system. They provide a more familiar and cleaner syntax for creating objects and managing their behavior.
 // Blueprint for Objects - A class acts as a blueprint or template for creating objects. It defines the properties and methods that objects created from that class will have.
@@ -256,3 +257,32 @@ mySillyDog1.birth(35); // "See gave birth to 35 puppies"
 
 // - Order of Arguments: Make sure the arguments passed to super() in the subclass constructor match the order of parameters in the superclass constructor.
 // - Property Shadowing: If a subclass defines a property with the same name as a property in the superclass, the subclass property will "shadow" the superclass property within the subclass.
+
+/// Super() ///
+
+// When a subclass inherits from a superclass, the subclass's constructor must call super() before accessing or modifying `this`
+
+// Why?
+// Initialization: The superclass constructor usually initializes essential properties that the subclass relies on. By calling super(), you ensure that these properties are correctly set up before the subclass's constructor continues.
+// Preventing errors: If you try to use this before calling super(), you might encounter errors or unexpected behavior, as the object might not be fully initialized yet.
+
+//// Method Overriding ////
+
+// Concept - Method overriding allows a subclass to provide a specific implementation for a method that is already defined in1 its superclass.
+
+// Polymorphism - Enables objects of different classes to be treated as objects of a common superclass, leading to more flexible and adaptable code.
+
+class BaseMethodClass {
+  action() {
+    console.log("Action!");
+  }
+}
+
+class SubClass extends BaseMethodClass {
+  action() {
+    super.action();
+    console.log("Cut!");
+  }
+}
+
+SubClass.action() // ==> "Action!" "Cut!"
