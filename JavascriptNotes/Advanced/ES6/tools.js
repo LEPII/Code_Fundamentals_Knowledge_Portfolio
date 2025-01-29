@@ -37,15 +37,15 @@
 
 // - Imports
 // import: This keyword is used to import values from other module
-// import { function1, function2 } from './module1'; - Imports specific named exports.
-// import * as module1 from './module1'; - Imports all exports and assigns them to a namespace object.
-// import defaultImport from './module1'; - Imports the default export.
+import { function1, function2 } from "./module1"; //  - Imports specific named exports.
+import * as module1 from "./module1"; //  - Imports all exports and assigns them to a namespace object.
+import defaultImport from "./module1"; // - Imports the default export.
 
 // - Exports
-// export: This keyword is used to export values from a module.
-// export const function1 = () => { ... }; - Exports a named function.
-// export default function myFunction() { ... }; - Exports a default function.
-// export { function1, function2 }; -Exports multiple named functions.
+// export => This keyword is used to export values from a module.
+export const function1 = () => {}; // Exports a named function.
+export default function myFunction() {} // Exports a default function.
+export { function1, function2 }; // -Exports multiple named functions.
 
 // - default keyword.
 
@@ -59,8 +59,7 @@
 // - Browsers: When "type": "module" is present in a script tag, the browser knows to treat the file as an ES module. This allows you to use import and export statements directly without the need for transpilation or bundling tools.
 // - Node.js: In Node.js, adding "type": "module" to the package.json file (or using the --experimental-modules flag) enables native ES module support. This allows you to use import and export statements within your Node.js applications.
 
-
-//// - ES6 Tooling //// 
+//// - ES6 Tooling ////
 
 /// Transpilers
 // Transpilers (short for "translators" or "compilers") are tools that convert code written in one language (or a newer version of a language) into code in another language (or an older version).
@@ -71,10 +70,9 @@
 // - Polyfilling: Transpilers can also include "polyfills" – pieces of code that provide implementations of newer JavaScript features for older browsers that don't natively support them.
 // - Source Maps: Transpilers often generate source maps, which help debugging tools map the transpiled code back to the original source code, making it easier to find and fix errors.
 
-/// Bundler 
+/// Bundler
 // - What they are: Bundlers combine multiple JavaScript files (and potentially other assets like CSS) into a single, optimized file. By combining files, you reduce the number of HTTP requests needed to load your application, which can significantly improve page load times.
 // - Code Optimization: Bundlers can perform various optimizations, such as:
 // - Tree Shaking: Removing unused code from your application.
 // - Minification: Shrinking the size of the code by removing unnecessary characters (e.g., whitespace, comments).
 // - Code Splitting: Breaking down your application into smaller chunks that can be loaded on demand, improving initial load times and overall performance.
-
