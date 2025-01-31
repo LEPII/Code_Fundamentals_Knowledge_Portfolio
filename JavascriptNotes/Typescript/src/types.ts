@@ -83,6 +83,11 @@ function drive(mph?: number) {
   mph = mph;
 }
 
+// - Function with Default Value
+function defaultValue(age = 25): number {
+  return age;
+}
+
 // - Function parameters and return types can be of various types:
 
 // 1. Primitive Types
@@ -147,4 +152,4 @@ interface ThePerson {
   dateOfDeath: (date: Date) => void;
 }
 
-const person3: ThePerson = { theName: "Luis", age: 26, dateOfDeath: Date.now }; // <= it's a joke, a dark joke... hehehehe ;) 
+const person3: ThePerson = { theName: "Luis", age: 26, dateOfDeath: Date.now }; // <= it's a joke, a dark joke... hehehehe ;)
