@@ -10,7 +10,6 @@
 //// - The Functions Type
 //// - The Objects Type
 //// - The Tuples Type
-//// - Readonly Property
 
 //// General ////
 
@@ -142,14 +141,3 @@ let mySecondTuple: [string, number?] = ["hello"]; // Second element is optional
 // You can use the rest operator (...) to represent an array of elements after a fixed number of elements:
 let myThirdTuple: [string, ...number[]] = ["Yo", 1, 2, 3];
 
-//// - Readonly Property
-
-// The readonly modifier makes a property of an object immutable after it's assigned a value. This means you can only read the value of the property, but not change it after the object is created.
-
-interface ThePerson {
-  readonly theName: string;
-  age: number;
-  dateOfDeath: (date: Date) => void;
-}
-
-const person3: ThePerson = { theName: "Luis", age: 26, dateOfDeath: Date.now }; // <= it's a joke, a dark joke... hehehehe ;)
