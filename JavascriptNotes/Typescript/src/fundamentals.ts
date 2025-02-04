@@ -31,19 +31,24 @@ const person3: ThePerson = { theName: "Luis", age: 26, dateOfDeath: Date.now }; 
 
 // Both interfaces and type aliases are powerful tools in TypeScript for defining the shape of data, but they have some key distinctions that make them suitable for different scenarios.
 
-// - Declaration
-
-// - Declared using the `interface` keyword.
-// - Primarily used to define the shape of objects. They excel at describing the structure of classes and objects, especially when dealing with inheritance and implementation.
-// - Can be extended using the extends keyword, allowing you to inherit properties from other interfaces. Interfaces also support declaration merging, where multiple declarations of the same interface are automatically merged.
-// - Extensibility - Can be extended using the extends keyword, allowing you to inherit properties from other interfaces. Interfaces also support declaration merging, where multiple declarations of the same interface are automatically merged
+// - Interfaces
 
 interface MyBooThangs {
   name: string;
   age: number;
 }
 
+// - Declared using the `interface` keyword.
+// - Primarily used to define the shape of objects. They excel at describing the structure of classes and objects, especially when dealing with inheritance and implementation.
+// - Can be extended using the extends keyword, allowing you to inherit properties from other interfaces. Interfaces also support declaration merging, where multiple declarations of the same interface are automatically merged.
+// - Extensibility - Can be extended using the extends keyword, allowing you to inherit properties from other interfaces. Interfaces also support declaration merging, where multiple declarations of the same interface are automatically merged
+
 // - Type Alias
+
+type MyType = {
+  name: string;
+  age: number;
+};
 
 // - Declared using the `type` keyword.
 // - More versatile and can define various types.
@@ -55,8 +60,3 @@ interface MyBooThangs {
 //  - Function types ((a: number) => string)
 
 // - Extensibility - Can be extended using intersection types (&). However, they do not support declaration merging.
-
-type MyType = {
-  name: string;
-  age: number;
-};
