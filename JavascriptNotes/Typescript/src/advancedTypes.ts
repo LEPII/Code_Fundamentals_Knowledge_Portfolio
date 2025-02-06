@@ -8,11 +8,10 @@
 //// - Literal Types
 //// - Nullable Types
 //// - Optional Chaining
-//// - never Type
-//// - The Nullish Coaelscing Operator
+//// - The Nullish Coalescing Operator
 //// - Type Assertions
-
 //// - unknown Type
+//// - never Type
 
 //// Type Aliases ////
 
@@ -89,12 +88,15 @@ const findingDiamonds = (value: string | null | undefined) => {
   }
 };
 
-
 //// Optional Chaining ////
+
+/// Optional Property Access Operator
 
 // The optional property access operator (?.) provides a concise way to safely access properties of an object that might be null or undefined
 
-// 
+//How it works:
+// - If the object before the ?. is not null or undefined, the property access proceeds as usual.
+// - If the object is null or undefined, the entire expression evaluates to undefined.
 
 interface gamerTag {
   name: string;
@@ -111,11 +113,127 @@ const user: gamerTag | null = {
 };
 
 // Safe access of address
-const street = user?.address?.street; 
+const street = user?.address?.street;
 
 console.log(street); // Main St, Miami Lakes
 
-const user2: gamerTag | null = null; 
-const street2 = user2?.address?.street; 
+const user2: gamerTag | null = null;
+// const street2 = user2?.address?.street;
+// console.log(street2); // Output: undefined
 
-console.log(street2); // Output: undefined
+/// Optional Element Access Operator
+
+// The optional element access operator (?.[]) provides a safe way to access elements within an array that might be null or undefined.
+
+// How it works
+// - If the array before the ?.[] is not null or undefined, the element access proceeds as usual.
+// - -If the array is null or undefined, the entire expression evaluates to undefined
+
+const numbersArray: number[] | null = [1, 2, 3];
+const firstNumber = numbersArray?.[0];
+
+console.log(firstNumber); // Output: 1
+
+const emptyArray: number[] | null = null;
+const firstNumber2 = emptyArray?.[0];
+
+console.log(firstNumber2); // Output: undefined
+
+/// Optional Call Operator
+
+// The optional call operator (?.()) provides a safe way to call a function that might be null or undefined.
+
+// How it works
+// - If the object before the ?.() is not null or undefined and is a function, the function is called.
+// - If the object is null, undefined, or not a function, the entire expression evaluates to undefined.
+
+type Callback = () => void;
+
+const myFunction: Callback | null = () => {
+  console.log("Function called!");
+};
+
+myFunction?.(); // Output: "Function called!"
+
+const nullFunction: Callback | null = null;
+
+// nullFunction?.(); // Output: undefined
+
+//// - The Nullish Coalescing Operator
+
+//  The Nullish Coalescing Operator ( ?? ) in JavaScript and TypeScript is a concise way to provide a default value for a variable that may be null or undefined.
+
+//  How it works:
+// - If the left-hand side operand of ?? is not null or undefined,
+//  the operator returns the left-hand side operand itself.
+// - If the left-hand side operand of ?? is null or undefined,
+// the operator returns the right-hand side operand.
+
+const myUser: string | null = null;
+
+const displayName = myUser ?? "Guest";
+
+console.log(displayName); // Output: "Guest"
+
+const username: string | null = "LUI";
+
+const displayUsername = username ?? "Guest";
+
+console.log(displayUsername); // Output: "LUI"
+
+// Key Differences from the Logical OR Operator (||)
+
+// || returns the first truthy value. This means that || will return the right-hand side operand if the left-hand side operand is falsy, including 0, false, '', NaN, and of course, null and undefined.
+
+// ?? specifically checks for null or undefined. It will only return the right-hand side operand if the left-hand side operand is strictly null or undefined.
+
+//// - Type Assertions
+
+// type assertions allow you to tell the compiler that a value has a certain type, even if the compiler cannot infer it correctly.
+
+// as Syntax: as Type
+
+let myMcDonaldsOrder = document.getElementById("Big_Mac") as HTMLInputElement;
+
+myMcDonaldsOrder.value =
+  "#1 Big Mac Large, Diet Coke + Extra Large Fries & 2 Chocolate Chip Cookies";
+
+// as Syntax: as Type
+
+const inputElement = <HTMLInputElement>document.getElementById("myInput");
+
+//// unknown Type ////
+
+// the `unknown` type represents a value of any type, including `null` and `undefined`.
+
+// any vs. unknown:
+
+// any
+// - Tells the compiler to "trust me jaborni, I know what I'm doing" and disables most type checks for that value.
+// - Can lead to unexpected runtime errors if the actual type is different from what you assumed.
+
+// unknown
+// - Represents a value of any type, but with stricter type checking.
+// - You can't perform any operations on an unknown value until you've narrowed its type through type guards or assertions.
+
+function processData(data: unknown) {
+  if (typeof data === "string") {
+    console.log(data.length);
+  } else if (Array.isArray(data)) {
+    console.log(data[0]);
+  } else {
+    console.log("Unknown data type");
+  }
+}
+
+//// never Type ////
+
+// The `never` type represents values that never occur.
+
+// Functions that never return:
+// - Functions that throw exceptions.
+// - Functions that enter infinite loops.
+
+function throwError(message: string): never {
+  throw new Error(message);
+}
