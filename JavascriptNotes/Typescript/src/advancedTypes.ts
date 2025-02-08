@@ -181,7 +181,7 @@ const displayUsername = username ?? "Guest";
 
 console.log(displayUsername); // Output: "LUI"
 
-// Key Differences from the Logical OR Operator (||)
+/// Key Differences between the Logical OR Operator (||) and the Nullish Coalescing Operator ( ?? ) 
 
 // || returns the first truthy value. This means that || will return the right-hand side operand if the left-hand side operand is falsy, including 0, false, '', NaN, and of course, null and undefined.
 
