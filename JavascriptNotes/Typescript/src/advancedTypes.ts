@@ -77,7 +77,8 @@ move("squat"); // OK
 //// Nullable Types ////
 
 // The nullable types allow a variable to hold either a value of a specific type or the value null.
-// Nullable types explicitly acknowledge the possibility of null values, helping you write code that handles these cases gracefully.
+// Nullable types explicitly acknowledge the possibility of null values, helping you write code that handles these cases gracefully.  If you try to access a property of a potentially null variable without checking for null first, TypeScript will give you a compile-time error, preventing the error from occurring in runtime.
+
 // Example ===> number? (a variable can be a number or null)
 
 const findingDiamonds = (value: string | null | undefined) => {
@@ -98,30 +99,44 @@ const findingDiamonds = (value: string | null | undefined) => {
 // - If the object before the ?. is not null or undefined, the property access proceeds as usual.
 // - If the object is null or undefined, the entire expression evaluates to undefined.
 
-interface gamerTag {
+interface GamerTag {
   name: string;
   address?: {
     street: string;
   };
+  online?: () => void;
 }
 
-const user: gamerTag | null = {
+const user1: GamerTag | null = {
   name: "lulu",
   address: {
     street: "Main St, Miami Lakes",
   },
 };
 
-// Safe access of address
-const street = user?.address?.street;
+const user2: GamerTag | null = null;
 
+const user5: GamerTag | undefined = {
+  name: "AXWELLSWM",
+  online: () => console.log("oh we fo sho gon play some minecraft tonight"),
+};
+
+// Without optional chaining
+if (user5.online) {
+  user5.online();
+} // "oh we fo sho gon play some minecraft tonight")
+
+// With optional chaining
+user1.online?.(); // Does nothing, no error
+user5.online?.(); // "oh we fo sho gon play some minecraft tonight")
+
+const street = user1?.address?.street;
 console.log(street); // Main St, Miami Lakes
 
-const user2: gamerTag | null = null;
 // const street2 = user2?.address?.street;
 // console.log(street2); // Output: undefined
 
-/// Optional Element Access Operator
+///  Accessing Array Elements /  Optional Element Access Operator
 
 // The optional element access operator (?.[]) provides a safe way to access elements within an array that might be null or undefined.
 
@@ -130,14 +145,10 @@ const user2: gamerTag | null = null;
 // - -If the array is null or undefined, the entire expression evaluates to undefined
 
 const numbersArray: number[] | null = [1, 2, 3];
-const firstNumber = numbersArray?.[0];
-
-console.log(firstNumber); // Output: 1
+const firstNumber = numbersArray?.[0]; // Output: 1
 
 const emptyArray: number[] | null = null;
-const firstNumber2 = emptyArray?.[0];
-
-console.log(firstNumber2); // Output: undefined
+const firstNumber2 = emptyArray?.[0]; // Output: undefined
 
 /// Optional Call Operator
 
@@ -164,9 +175,9 @@ const nullFunction: Callback | null = null;
 //  The Nullish Coalescing Operator ( ?? ) in JavaScript and TypeScript is a concise way to provide a default value for a variable that may be null or undefined.
 
 //  How it works:
-// - If the left-hand side operand of ?? is not null or undefined,
+// - If the left-hand side operand of ?? is NOT null or undefined,
 //  the operator returns the left-hand side operand itself.
-// - If the left-hand side operand of ?? is null or undefined,
+// - If the left-hand side operand of ?? IS null or undefined,
 // the operator returns the right-hand side operand.
 
 const myUser: string | null = null;
@@ -181,7 +192,13 @@ const displayUsername = username ?? "Guest";
 
 console.log(displayUsername); // Output: "LUI"
 
-/// Key Differences between the Logical OR Operator (||) and the Nullish Coalescing Operator ( ?? ) 
+// Handling undefined from Optional Chaining
+
+const user3 =
+  user5?.address?.street ?? "where who's name will not be spoken belongs"; // If the streets is undefined, street becomes "where who's name will not be spoken belongs"
+console.log(street);
+
+/// Key Differences between the Logical OR Operator (||) and the Nullish Coalescing Operator ( ?? )
 
 // || returns the first truthy value. This means that || will return the right-hand side operand if the left-hand side operand is falsy, including 0, false, '', NaN, and of course, null and undefined.
 

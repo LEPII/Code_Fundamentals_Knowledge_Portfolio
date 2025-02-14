@@ -56,7 +56,7 @@
 // Keep your error handling code clean, consistent, and easy to understand.
 // Regularly review and update your error handling strategies as your application evolves.
 
-//// Types Of Errors ////
+//// Types Of Errors //// -> Network, reference errors, etc.  
 
 // --> Syntax Errors - These occur during the parsing of your code. The JavaScript engine cannot understand the code's structure. (e.g., missing semicolons, mismatched parentheses)
 // --> Runtime Errors - These happen while the code is executing. (e.g., trying to access a property of an undefined object, dividing by zero)

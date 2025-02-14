@@ -17,7 +17,7 @@ class Competitor {
     public squatTotal: number,
     public benchTotal: number,
     public deadliftTotal: number,
-    private _total: number,
+    private total: number,
     public huggable?: boolean
   ) {}
 
