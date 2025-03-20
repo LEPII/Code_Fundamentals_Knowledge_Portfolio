@@ -6,6 +6,8 @@
 //// - Access Modifiers
 //// - Index Signature
 //// - Static Methods
+//// - Inheritance
+//// - Method Overriding
 
 //// Creating Classes & Objects  ////
 
@@ -22,7 +24,7 @@ class Competitor {
     public huggable?: boolean
   ) {}
 
-  private firstSquatAttempt(squatAttempt: number): void {
+  firstSquatAttempt(squatAttempt: number): void {
     if (squatAttempt <= 40) throw new Error("failed attempt");
     this._total += squatAttempt;
   }
@@ -32,12 +34,16 @@ class Competitor {
   }
 
   set total(value: number) {
+    // anytime the `total` variable gets called, this function gets called.
     if (value === 0) throw new Error("you failed your lifts buddy");
     this._total += this.squatTotal + this.benchTotal + this.deadliftTotal;
   }
 }
 
 let lifter = new Competitor(0, "Lu", 511, 10, 10, 10, 30, true);
+lifter.firstSquatAttempt(50);
+
+console.log(lifter.total);
 
 //// Access Modifiers ////
 
@@ -50,7 +56,7 @@ let lifter = new Competitor(0, "Lu", 511, 10, 10, 10, 30, true);
 
 // 2. private
 
-// Members declared as private are only accessible within the class where they are declared. They cannot be accessed from outside the class or by derived classes.
+// Members declared as private are only accessible within the class where they are declared. They cannot be accessed from outside the class or by derived classes. - DO NOT STORE SENSITIVE DATA USING PRIVATE MEMBERS. Only use private properties for writing robust code.
 
 // 3. protected
 
@@ -72,16 +78,73 @@ orders[1] = 10;
 
 //// - Static Members
 
-// Static members belong to the class itself, not to instances (objects) of the class.  They are accessed directly using the class name.
+// Static members belong to the class itself, not to instances (objects) of the class. They are accessed directly using the class name.
+// Useful if we need a single instance of a property in memory.
 
 class MyWingStopHistory {
   private static _totalWingsEaten: number = 0;
+
+  // we typically wouldn't want to change the _totalWingsEaten property outside of the class
+  // so we would use the `private` access modifier and a getter to get it's value.
 
   start() {
     MyWingStopHistory._totalWingsEaten++;
   }
 
-  get total() {
+  static get total() {
     return MyWingStopHistory._totalWingsEaten;
   }
 }
+
+let myCurrentWingsEaten = new MyWingStopHistory();
+myCurrentWingsEaten.start();
+
+console.log(MyWingStopHistory.total); // Output: 1
+
+//// Inheritance ////
+
+class MainHouse {
+  constructor(
+    public words: string,
+    public region: string,
+    public religion: string
+  ) {}
+
+  get houseInfo() {
+    return (
+      "The House's words are" +
+      " " +
+      this.words +
+      " while their religion is" +
+      this.region
+    );
+  }
+
+  election() {
+    console.log("New Heir");
+  }
+}
+
+class Vassel extends MainHouse {
+  constructor(
+    public overlords: string,
+    words: string,
+    region: string,
+    religion: string
+  ) {
+    super(words, region, religion); // super is used to reference the base class
+  }
+}
+
+let newHouse = new Vassel(
+  "Lord Davos Seaworth",
+  "Not sure lol",
+  "Crownlands",
+  "Faith Of The Seven"
+);
+
+// the newHouse variable will have the following 4 properties with the election method.
+
+// - As a best practice, we should implement each class in a separate file.
+
+//// - Method Overriding

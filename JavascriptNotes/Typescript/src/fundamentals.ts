@@ -41,7 +41,6 @@ interface MyBooThangs {
 // - Declared using the `interface` keyword.
 // - Primarily used to define the shape of objects. They excel at describing the structure of classes and objects, especially when dealing with inheritance and implementation.
 // - Can be extended using the extends keyword, allowing you to inherit properties from other interfaces. Interfaces also support declaration merging, where multiple declarations of the same interface are automatically merged.
-// - Extensibility - Can be extended using the extends keyword, allowing you to inherit properties from other interfaces. Interfaces also support declaration merging, where multiple declarations of the same interface are automatically merged
 
 // - Type Alias
 
