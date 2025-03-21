@@ -1,5 +1,7 @@
 //// Classes In Typescript
 
+import { Main } from "next/document";
+
 //// Table Of Content
 
 //// - Creating Classes & Objects
@@ -8,6 +10,9 @@
 //// - Static Methods
 //// - Inheritance
 //// - Method Overriding
+//// - Open Close Principle
+//// - Abstract Classes and Methods
+//// - Interface PRT 2
 
 //// Creating Classes & Objects  ////
 
@@ -61,6 +66,14 @@ console.log(lifter.total);
 // 3. protected
 
 // Members declared as protected are accessible within the class where they are declared and by derived (child) classes. They are not accessible from outside the class directly.
+
+// Protected members should'nt be used that often unless you know what you're doing.
+
+// Private VS Protected Members
+
+// Both private and protected members are not accessible from code outside the class hierarchy.
+// Private members ARE NOT accessible in derived classes.
+// Protected members ARE accessible in derived classes.
 
 //// - Index Signature
 
@@ -148,3 +161,74 @@ let newHouse = new Vassel(
 // - As a best practice, we should implement each class in a separate file.
 
 //// - Method Overriding
+
+// The override keyword in TypeScript is used to explicitly indicate that a method in a derived class is intended to override a method in its base class.
+
+class NewTown extends MainHouse {
+  override election() {
+    console.log("New Mayor");
+  }
+}
+
+// When the noImplicitOverride option in TypeScript's tsconfig.json file is set to true, the TypeScript compiler requires you to explicitly use the override keyword when you intend to override a method from a base class in a derived class.
+
+//// Open Close Principle ////
+
+// The Open/Closed Principle (OCP) is one of the five SOLID principles of object-oriented design.
+// It states  that Software entities (classes, modules, functions, etc.) should be OPEN FOR EXTENSION AND CLOSES FOR MODIFICATION.
+// Basically, this means you should be able to add new functionality to your code without modifying existing code.
+
+// In simpler terms think about a main Exercise Class that has LegExercise and ChestExercise Classes inherit from it with different methods for movement and technique. You're extending the main Exercise Class and and making modifications in it's inherited classes. This encapsulates (no pun intended) Polymorphism by having the main class take many forms, having it's subclasses Inherit the properties and methods of it's parent class.
+
+//// Abstract Classes and Methods ////
+
+// Abstract Classes
+
+// - An abstract class serves as a blueprint for other classes.
+// - It cannot be instantiated directly; its purpose is to be extended by derived classes.
+// - It can contain both concrete (implemented) and abstract (unimplemented) members.
+
+// Abstract Methods
+
+// - An abstract method is a method declared in an abstract class without an implementation.
+// - Derived classes must provide an implementation for all abstract methods declared in their base class.
+// - They define a contract that derived classes must adhere to
+
+abstract class Shape {
+  abstract calculateArea(): number; // - Abstract method
+
+  display(): void {
+    console.log("This is a shape."); // - Concrete method
+  }
+}
+
+//// Interface PRT 2 ////
+
+// At their core, interfaces act as contracts, specifying which properties and methods an object should have.
+
+interface Targaryen {
+  name: string;
+  health: number;
+  swordSkill: number;
+  swingSword(): void; 
+}
+
+// Interfaces can also be inherited
+
+interface Dragon extends Targaryen {
+  dracarys(): void;
+  fly(): void;
+}
+
+// If you need to implement a method from a interface method, you could use the `implement` keyword on a class
+
+class Powers implements Targaryen {
+  constructor(
+    public name: string,
+    public health: number,
+    public swordSkill: number
+  ) {}
+  swingSword(): void {
+    "BURN THEM ALL"
+  }
+}
