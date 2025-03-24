@@ -1,7 +1,5 @@
 //// Classes In Typescript
 
-import { Main } from "next/document";
-
 //// Table Of Content
 
 //// - Creating Classes & Objects
@@ -210,7 +208,7 @@ interface Targaryen {
   name: string;
   health: number;
   swordSkill: number;
-  swingSword(): void; 
+  swingSword(): void;
 }
 
 // Interfaces can also be inherited
@@ -229,6 +227,6 @@ class Powers implements Targaryen {
     public swordSkill: number
   ) {}
   swingSword(): void {
-    "BURN THEM ALL"
+    "BURN THEM ALL";
   }
 }
