@@ -39,3 +39,56 @@ class Arrays {
 }
 // let numbers = Arrays.wrapInArray(1);
 
+//// Generic Interfaces ////
+
+interface Result<T> {
+  data: T | null;
+  error: string | null;
+}
+
+function fetch<T>(url: string): Result<T> {
+  return { data: null, error: null };
+}
+
+interface User {
+  username: string;
+}
+
+interface Product {
+  title: string;
+}
+
+let result = fetch<User>("url");
+// result.data. /// you will see all the properties of the user object.
+
+//// Generic Constraints ////
+
+//  Generic constraints allow you to limit the types that can be used with a generic type parameter.
+
+function myCustomFunction<T extends number | string>(value: T) {
+  return value;
+}
+
+myCustomFunction(3); // valid
+myCustomFunction("value"); // valid
+// myCustomFunction(true); // not valid
+
+// can be used to predefine the shape of an object
+
+function mySecondCustomFunction<T extends { myName: string }>(value: T) {
+  return value;
+}
+
+mySecondCustomFunction({ myName: "Lui" });
+
+// can be used with classes(or any classes created from a parent class) and interfaces
+
+interface MyExtendedInterface {
+  name: string;
+}
+
+function myThirdCustomFunction<T extends MyExtendedInterface>(value: T) {
+  return value;
+}
+
+myThirdCustomFunction({ name: "Lui" });
