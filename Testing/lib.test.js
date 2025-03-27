@@ -38,3 +38,50 @@ describe("testing strings", () => {
     expect(result).toContain("Lulu");
   });
 });
+
+describe("testing array of houses", () => {
+  it("should return houses of Westeros", () => {
+    const result = myFirstTest.testMeBaby3();
+
+    // Too general
+    expect(result).toBeDefined();
+    expect(result).not.toBeNull();
+
+    // Too specific
+    expect(result[0]).toBe("Starks");
+    expect(result[1]).toBe("Targaryen");
+    expect(result[2]).toBe("Lannister");
+
+    // More proper but not ideal
+    expect(result).toContain("Starks");
+    expect(result).toContain("Lannister");
+
+    // ideal way
+    // the arrayContaining accepts an array where the items can be in any order. "you can also look more in the docs my bro" - me
+    expect(result).toEqual(
+      expect.arrayContaining(["Targaryen", "Lannister", "Starks"])
+    );
+  });
+});
+
+describe("testing my dragon object", () => {
+  it("should return a dragon... lol", () => {
+    const result = myFirstTest.testMeBaby4("Patico");
+
+    // using .toBe() on objects will fail because it's expecting the two objects in memory to fail. Better to use .toEqual instead
+
+    // expect(result).toBe({ name: "Patico", power: "fire" });
+
+    //
+    expect(result).toEqual({ name: "Patico", power: "fire" });
+
+    // if an object has many properties and you want to test for specific properties but not all, you can use the .toMatchObject() or the .toHaveProperty()
+
+    // Use .toHaveProperty() when you primarily need to verify the existence of a particular property (potentially nested) in an object.
+
+    expect(result).toMatchObject({ name: "Patico" });
+    expect(result).toHaveProperty("power", "fire");
+  });
+});
+
+
