@@ -6,7 +6,7 @@ const myFirstTest = require("./functions2test");
 // The expect() function is the starting point for any assertion in Jest. It wraps the value you want to test.
 // The toBe() is a matcher function. Matchers are used to compare the value wrapped by expect() with an expected value.
 
-describe("testMeBaby1", () => {
+describe("testing numbers", () => {
   // typically this first part of naming of test would be the name of the function
 
   it("My very first test :) - should return positive number if input is positive", () => {
@@ -39,6 +39,8 @@ describe("testing strings", () => {
   });
 });
 
+/// testing arrays
+
 describe("testing array of houses", () => {
   it("should return houses of Westeros", () => {
     const result = myFirstTest.testMeBaby3();
@@ -64,8 +66,10 @@ describe("testing array of houses", () => {
   });
 });
 
+/// testing objects 
+
 describe("testing my dragon object", () => {
-  it("should return a dragon... lol", () => {
+  it("should return a dragon...object lol", () => {
     const result = myFirstTest.testMeBaby4("Patico");
 
     // using .toBe() on objects will fail because it's expecting the two objects in memory to fail. Better to use .toEqual instead
@@ -84,4 +88,20 @@ describe("testing my dragon object", () => {
   });
 });
 
+/// testing exceptions
 
+describe("testing my exception", () => {
+  it("should throw a valid exception", () => {
+    const args = [null, undefined, 0, "", false, NaN];
+    args.forEach((a) => {
+      expect(() => {
+        myFirstTest.testMeBaby5(a);
+      }).toThrow();
+    });
+  });
+
+  it("should return a new ruler string", () => {
+    const result = myFirstTest.testMeBaby5("Prince Chupapi Lui");
+    expect(result).toMatchObject({ newRuler: "Prince Chupapi Lui" });
+  });
+});

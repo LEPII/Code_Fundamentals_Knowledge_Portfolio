@@ -25,7 +25,7 @@ module.exports.testMeBaby4 = function (myBabyDragon) {
 // exceptions
 
 module.exports.testMeBaby5 = function (usurper) {
-  if ("king" !== usurper) throw new Error("evil king still sits the throne");
+  if (!usurper) throw new Error("evil king still sits the throne");
 
-  return { newKing: usurper };
+  return { newRuler: usurper };
 };
