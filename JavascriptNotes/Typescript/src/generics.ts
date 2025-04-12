@@ -4,9 +4,10 @@
 
 //// - General
 //// - Generic Classes
-//// - Generic Functions
+//// - Generic Functions/Methods
 //// - Generic Interfaces
 //// - Generic Constraints
+//// - Extending Generic Classes
 //// - Type Mapping
 
 //// - General
@@ -26,8 +27,8 @@ class KeyValuePair<K, V> {
 }
 
 let pair = new KeyValuePair<number, string>(3, "new");
-// You don't need to explicity set the generic type arguments. The compiler will can infer it for us. Intellisense will still work.
 
+// You don't need to explicity set the generic type arguments. The compiler will can infer it for us. Intellisense will still work.
 let pair2 = new KeyValuePair(32, "newer");
 
 //// Generic Functions/Methods ////
@@ -92,3 +93,80 @@ function myThirdCustomFunction<T extends MyExtendedInterface>(value: T) {
 }
 
 myThirdCustomFunction({ name: "Lui" });
+
+//// Extending Generic Classes ////
+
+// There is three primary ways you can handle generic type parameters when extending a generic class in TypeScript.
+class DataProcessor<T> {
+  constructor(public data: T[]) {}
+
+  process(): T[] {
+    return this.data;
+  }
+}
+// 1. Fixing the Generic Type Parameter
+
+// When you fix the generic type parameter in a child class, you specify a concrete type for the parent's generic type parameter. This means the child class will only work with that specific type.
+
+// Here the NumbersArrayOnly class extends DataProcessor, but it fixes the generic type T to be number. Any instance of NumbersArrayOnly will specifically work with arrays of numbers.
+
+class NumbersArrayOnly extends DataProcessor<number> {
+  constructor(data: number[]) {
+    super(data);
+  }
+
+  sum(): number {
+    return this.data.reduce((sum, num) => sum + num, 0);
+  }
+}
+
+// 2. Restricting the Generic Type Parameter
+
+// When you restrict the generic type parameter in a child class, you use a constraint (extends) to limit the types that the child class can work with. The child class itself remains generic but with a more specific bound.
+
+// Below, the SortableProcessor class extends DataProcessor, but it restricts the generic type T to be any type that implements the Sortable interface (meaning it must have a value property of type number). The SortableProcessor itself remains generic, allowing it to work with different Sortable types.
+
+interface Sortable {
+  value: number;
+}
+
+class SortableProcessor<T extends Sortable> extends DataProcessor<T> {
+  constructor(data: T[]) {
+    super(data);
+  }
+  sortByValue(): T[] {
+    return [...this.data].sort((a, b) => a.value - b.value);
+  }
+}
+
+interface ItemA extends Sortable {
+  name: string;
+}
+
+interface ItemB {
+  id: string;
+}
+
+const sortableItems: ItemA[] = [
+  { value: 3, name: "C" },
+  { value: 1, name: "A" },
+  { value: 2, name: "B" },
+];
+
+const sortableProcessor = new SortableProcessor(sortableItems);
+
+console.log(sortableProcessor.process());
+// Output: [{ value: 3, name: 'C' }, { value: 1, name: 'A' }, { value: 2, name: 'B' }]
+
+console.log(sortableProcessor.sortByValue());
+// Output: [{ value: 1, name: 'A' }, { value: 2, name: 'B' }, { value: 3, name: 'C' }]
+
+// 3. Simply Passing It On to the Child Class
+
+// In this case, the child class also becomes generic with the same type parameter as the parent. This allows the child class to maintain the flexibility of the parent class.
+
+class AdvancedProcessor<T> extends DataProcessor<T> {
+  filter(predicate: (item: T) => boolean): T[] {
+    return this.data.filter(predicate);
+  }
+}
