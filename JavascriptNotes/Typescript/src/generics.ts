@@ -8,6 +8,7 @@
 //// - Generic Interfaces
 //// - Generic Constraints
 //// - Extending Generic Classes
+//// - The keyof Operator
 //// - Type Mapping
 
 //// - General
@@ -170,3 +171,32 @@ class AdvancedProcessor<T> extends DataProcessor<T> {
     return this.data.filter(predicate);
   }
 }
+
+//// The keyof Operator ////
+
+// The keyof operator takes a type as an operand and produces a union of string literal types representing the public property names (keys) of that type.
+
+interface NewDragons {
+  name: string;
+  age: number;
+  firepower: number;
+}
+
+type NewDragon = keyof NewDragons; // "name" | "age" | "firepower"
+
+//// Type Mapping ////
+
+// Type mapping  allows you to transform the properties of an existing type to create a new type.
+// It's a powerful way to derive new types based on existing ones, applying modifications like making properties read-only, optional, or changing their types.
+
+type ReadOnlyFictionAnimal<T> = {
+  readonly [K in keyof T]: T[K];
+};
+
+let newestDragon: ReadOnlyFictionAnimal<NewDragons> = {
+  name: "lulu",
+  age: 3,
+  firepower: 4,
+};
+
+// newestDragon.name = "myEx" //Cannot assign to 'name' because it is a read-only property
