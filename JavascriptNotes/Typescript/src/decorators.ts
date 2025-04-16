@@ -67,8 +67,11 @@ function MoreFormalHomie(
   methodName: string,
   descriptor: PropertyDescriptor
 ) {
-  descriptor.value = function () {
-    console.log("new implementation")
+  const original = descriptor.value as Function;
+  descriptor.value = function (...arg: any) {
+    console.log("before");
+    original.call(this, ...arg);
+    console.log("after");
   };
 }
 
@@ -79,3 +82,77 @@ function MoreFormalHomie(
 // 2. propertyKey: string | symbol - This is the name of the method being decorated. In our example, it would be "add". It can be a string or a symbol.
 
 // 3. descriptor: PropertyDescriptor -  This is an object that describes the property (in this case, the method) being decorated. It's the same descriptor you would get from Object.getOwnPropertyDescriptor(target, propertyKey)
+
+//// Accessor Decorators ////
+
+// Accessor decorators are applied to the get or set accessor of a class member. They are declared immediately before the get or set keyword using the @ symbol followed by the decorator's name.
+
+class NewPerson {
+  private _firstName: string;
+  private _lastName: string;
+
+  constructor(firstName: string, lastName: string) {
+    this._firstName = firstName;
+    this._lastName = lastName;
+  }
+
+  @capitalize
+  get firstName(): string {
+    return this._firstName;
+  }
+
+  @capitalize
+  get lastName(): string {
+    return this._lastName;
+  }
+}
+
+function capitalize(
+  target: any,
+  propertyKey: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalGetter = descriptor.get;
+  if (originalGetter) {
+    descriptor.get = function () {
+      const result = originalGetter.call(this);
+      return typeof result === "string" ? result.toUpperCase() : result;
+    };
+  }
+}
+
+//// - Property Decorators
+
+// A property decorator is applied directly to a property declaration within a class.
+
+function MaxLength(length: number) {
+  return (target: any, propertyName: string) => {
+    let value: string;
+
+    const descriptor: PropertyDescriptor = {
+      get() {
+        return value;
+      },
+      set(newValue: string) {
+        if (newValue.length > length)
+          throw new Error(
+            `${propertyName} should be max ${length} characters long`
+          );
+        value = newValue;
+      },
+    };
+    Object.defineProperty(target, propertyName, descriptor);
+  };
+}
+
+class User {
+  @MaxLength(50)
+  password: string;
+
+  constructor(password: string) {
+    this.password = password;
+  }
+}
+
+//// Parameter Decorators //// 
+
