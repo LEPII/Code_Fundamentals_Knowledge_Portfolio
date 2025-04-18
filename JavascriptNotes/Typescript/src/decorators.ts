@@ -12,7 +12,10 @@
 //// - Parameter Decorators
 
 //// General ////
+
 // Decorators are a way to add metadata and modify the behavior of classes, methods, properties, or parameters in a declarative manner.
+
+// To use decorators, we have to enable the experimentalDecorators setting in tsconfig.
 
 //// Class Decorators ////
 
@@ -154,5 +157,31 @@ class User {
   }
 }
 
-//// Parameter Decorators //// 
+//// Parameter Decorators ////
 
+// Parameter Decorators provide a way to interact with the parameters of a class constructor or a method.
+
+// A parameter decorator is declared immediately before a parameter in a constructor or method declaration.
+
+// The primary purpose of a parameter decorator is to observe the existence and position of a parameter within a method or constructor signature. Unlike other decorators, parameter decorators have limited direct influence on the behavior of the parameter itself. Their main uses are:
+
+// - Metadata Attachment
+// - Dependency Injection
+// - Validation
+
+type WatchedParameter = {
+  methodName: string;
+  parameterIndex: number;
+};
+
+const watchedParameters: WatchedParameter[] = [];
+
+function Watch(target: any, methodName: string, parameterIndex: number) {
+  watchedParameters.push({ methodName, parameterIndex });
+}
+
+class TronBike {
+  blade(@Watch power: number) {}
+}
+
+console.log(watchedParameters); // [{methodName: "power", parameterIndex: 0}]
