@@ -1,5 +1,5 @@
 import axios from "axios";
-import ToDos from "../../../../models/Todos";
+import ToDos from "../models/Todos";
 
 class ToDoService {
   http = axios.create({ baseURL: "https://jsonplaceholder.typicode.com" });
