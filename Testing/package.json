@@ -4,7 +4,7 @@
   "description": "",
   "main": "generalNotes.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watchAll --verbose"
   },
   "keywords": [],
   "author": "",
