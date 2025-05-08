@@ -1,14 +1,11 @@
-import './App.css'
+import ListGroup from "./components/ListGroup";
 
 function App() {
-
   return (
-    <>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <ListGroup />
+    </div>
+  );
 }
 
-export default App
+export default App;
