@@ -1,8 +1,9 @@
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
-import Like from "./components/Like"
+import Like from "./components/Like";
 import { useState } from "react";
+import Form from "./components/Form";
 
 function App() {
   const [alertVisible, setAlertVisible] = useState(false);
@@ -15,12 +16,13 @@ function App() {
 
   return (
     <>
+      <Form />
       {alertVisible && (
         <Alert>
           <span> LUI'S CHILDREN</span>
         </Alert>
       )}
-      <Like onClick={() => console.log("chicken wings")}/>
+      <Like onClick={() => console.log("chicken wings")} />
       <div>
         <ListGroup
           items={items}
