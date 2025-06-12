@@ -22,7 +22,11 @@ function App() {
   return (
     <>
       <div className="mb-5">
-        <ExpenseForm />
+        <ExpenseForm
+          onSubmit={(expense) =>
+            setExpenses([...expenses, { ...expense, id: expenses.length + 1 }]) // IDs are usually generated on the server. 
+          }
+        />
       </div>
       <div className="mb-4">
         <ExpenseFilter
