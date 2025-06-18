@@ -33,7 +33,6 @@
 // 1. A function (the "effect" function
 // - This is where you put the code for your side effect. This function will be executed after every render of your component, by default.
 // 2. An optional dependency array
-// - If provided, React will only re-run your effect function if any of the values in this array have changed between renders.
 // - If you omit the dependency array, the effect function will run after every render of your component. This is rarely what you want for performance reasons, as it can lead to unnecessary re-executions.
 // - If you provide an empty array, the effect function will run only once after the initial render, and the cleanup function will run only when the component unmounts.
-// If you include values in the dependency array, the effect function will re-run whenever any of those values change. React performs a shallow comparison of the dependencies.
+// - If you include values in the dependency array, the effect function will re-run whenever any of those values change. React performs a shallow comparison of the dependencies.
