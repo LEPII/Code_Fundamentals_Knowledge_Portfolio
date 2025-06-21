@@ -5,13 +5,21 @@ import { useEffect, useState } from "react";
 // import ExpenseFilter from "./components/expense-tracker/components/ExpenseFilter";
 // import ExpenseForm from "./components/expense-tracker/components/ExpenseForm";
 import ProductList from "./components/ProductList";
-import axios from "axios";
+import axios, { AxiosError, CanceledError } from "axios";
 // import categories from "./components/expense-tracker/categories";
+
+interface User {
+  // can optionally choose which fields we want
+  id: number;
+  name: string;
+}
 
 function App() {
   // const [selectedCategory, setSelectedCategory] = useState("");
   const [category, setCategory] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<User[]>([]);
+  const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
   // const [expenses, setExpenses] = useState([
   //   { id: 1, description: "aaa", amount: 10, category: "Utilities" },
   //   { id: 2, description: "bbb", amount: 100, category: "Utilities" },
@@ -24,10 +32,77 @@ function App() {
   //   : expenses;
 
   useEffect(() => {
+    const controller = new AbortController();
+    setLoading(true);
+    // using async/await
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get<User[]>(
+          "https://jsonplaceholder.typicode.com/users",
+          { signal: controller.signal }
+        );
+        setUsers(res.data);
+        setLoading(false);
+      } catch (err) {
+        if (err instanceof CanceledError) return;
+        setError((err as AxiosError).message);
+        setLoading(false);
+      }
+    };
+    fetchUsers();
+
+    return () => controller.abort();
+
+    // using .then/catch
+
+    // axios
+    //   .get<User[]>("https://jsonplaceholder.typicode.com/users")
+    //   .then((res) => setUsers(res.data))
+    //   .catch((err) => setError(err.message));
+  }, []);
+
+  const deleteUser = (user: User) => {
+    const originalUsers = [...users];
+    setUsers(users.filter((u) => u.id !== user.id));
+
     axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((res) => console.log(res));
-  });
+      .delete("https://jsonplaceholder.typicode.com/users/" + user.id)
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
+
+  const addUser = () => {
+    const originalUsers = [...users];
+    const newUser = { id: 0, name: "lulu" };
+    setUsers([newUser, ...users]);
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/users", newUser)
+      .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
+
+  const updateUser = (user: User) => {
+    const originalUsers = [...users];
+    const updatedUser = { ...user, name: user.name + "!" };
+    setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+    axios
+      .patch(
+        "https://jsonplaceholder.typicode.com/users/"
+        + user.id,
+        updatedUser
+      )
+      .catch((err) => {
+        setError(err.message);
+        setUsers(originalUsers);
+      });
+  };
 
   return (
     <>
@@ -39,6 +114,35 @@ function App() {
         <option value="Duck">Duck</option>
       </select>
       <ProductList category={category} />
+      {error && <p className="text-danger">{error}</p>}
+      {isLoading && <div className="spinner-border"></div>}
+      <button className="btn btn-primary mb-3" onClick={addUser}>
+        Add
+      </button>
+      <ul className="list-group">
+        {users.map((user) => (
+          <li
+            key={user.id}
+            className="list-group-item d-flex justify-content-between">
+            {user.name}
+            <div>
+              
+              <button
+                className="btn btn-secondary mx-1"
+                onClick={() => {
+                  updateUser(user);
+                }}>
+                Update
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => deleteUser(user)}>
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
       {/* <div className="mb-5">
         <ExpenseForm
           onSubmit={
