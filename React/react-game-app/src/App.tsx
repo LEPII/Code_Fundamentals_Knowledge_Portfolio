@@ -8,13 +8,14 @@ import ProductList from "./components/ProductList";
 // import categories from "./components/expense-tracker/categories";
 import { CanceledError } from "./services/api-client";
 import userService, { type User } from "./services/userService";
+import useUsers from "./hooks/useUsers";
 
 function App() {
   // const [selectedCategory, setSelectedCategory] = useState("");
   const [category, setCategory] = useState("");
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [isLoading, setLoading] = useState(false);
+
+  const { users, error, isLoading, setUsers, setError } = useUsers();
+
   // const [expenses, setExpenses] = useState([
   //   { id: 1, description: "aaa", amount: 10, category: "Utilities" },
   //   { id: 2, description: "bbb", amount: 100, category: "Utilities" },
@@ -26,28 +27,11 @@ function App() {
   //   ? expenses.filter((e) => e.category === selectedCategory)
   //   : expenses;
 
-  useEffect(() => {
-    setLoading(true);
-    const { request, cancel } = userService.getAllUsers();
-    request
-      .then((res) => {
-        setUsers(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-
-    return () => cancel();
-  }, []);
-
   const deleteUser = (user: User) => {
     const originalUsers = [...users];
     setUsers(users.filter((u) => u.id !== user.id));
 
-    userService.deleteUser(user.id).catch((err) => {
+    userService.delete(user.id).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });
@@ -59,7 +43,7 @@ function App() {
     setUsers([newUser, ...users]);
 
     userService
-      .createUser(newUser)
+      .create(newUser)
       .then(({ data: savedUser }) => setUsers([savedUser, ...users]))
       .catch((err) => {
         setError(err.message);
@@ -71,7 +55,7 @@ function App() {
     const originalUsers = [...users];
     const updatedUser = { ...user, name: user.name + "!" };
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
-    userService.updateUser(user).catch((err) => {
+    userService.update(user).catch((err) => {
       setError(err.message);
       setUsers(originalUsers);
     });

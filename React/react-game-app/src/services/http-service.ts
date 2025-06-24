@@ -1,32 +1,38 @@
 import apiClient from "./api-client";
 
-export interface User {
-  // can optionally choose which fields we want
+interface Entity {
   id: number;
-  name: string;
 }
 
-class UserService {
-  getAllUsers() {
+class HttpService {
+  endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = endpoint;
+  }
+
+  getAll<T>() {
     const controller = new AbortController();
-    const request = apiClient.get<User[]>("/users", {
+    const request = apiClient.get<T[]>(this.endpoint, {
       signal: controller.signal,
     });
 
     return { request, cancel: () => controller.abort() };
   }
 
-  deleteUser(id: number) {
-    return apiClient.delete("/users/" + id);
+  delete(id: number) {
+    return apiClient.delete(this.endpoint + "/" + id);
   }
 
-  createUser(user: User) {
-    return apiClient.post("/users", user);
+  create<T>(entity: T) {
+    return apiClient.post(this.endpoint, entity);
   }
 
-  updateUser(user: User) {
-    return apiClient.patch("/users/" + user.id, user);
+  update<T extends Entity>(entity: T) {
+    return apiClient.patch(this.endpoint + "/" + entity.id, entity);
   }
 }
 
-export default new UserService();
+const create = (endpoint: string) => new HttpService(endpoint);
+
+export default create ;
