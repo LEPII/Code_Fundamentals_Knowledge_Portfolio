@@ -5,6 +5,14 @@
 ## Atlas's Security Features
 -->
 
+## Atlas DbaaS Tool
+
+In Atlas:
+
+* Organization names allow you to group an define users and teams and grant them access to projects.
+* Projects allow you to define and organize resources like database clusters.
+* One common way to use this feature is to create separate projects for development, testing, and production.
+
 ## Atlas DbaaS vs Self-Hosted options
 
 MongoDB Atlas (DBaaS)
