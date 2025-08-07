@@ -160,7 +160,7 @@ Many To Many Relationship
 - We typically advise against bidirectional referencing due to maintenance overhead.
 - While referencing reduces the document size, it increases the complexity of queries needed to retrieve related information.
 
-Other Key Factors 
+Other Key Factors
 
 - Beside relationship types, there are other key factors to consider when deciding between embedding and referencing.
 

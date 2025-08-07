@@ -1,0 +1,1 @@
+<!-- cloud computing is essentially the on-demand delivery of IT resource over the internet with pay-as-you-go pricing -->
