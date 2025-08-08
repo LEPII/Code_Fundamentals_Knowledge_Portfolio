@@ -1,0 +1,11 @@
+_id,restaurant_name,cuisine,rating,address.street,address.city,address.zipcode,menu_items.0.name,menu_items.0.price,menu_items.1.name,menu_items.1.price,is_open,last_updated
+ObjectId("60c72b2f901b8c1d3c0e3e2c"),"The Spice Route","Indian",4.5,"123 Curry Lane","New Delhi","110001","Chicken Tikka Masala",15.99,"Vegetable Biryani",12.50,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e2d"),"Pizza Palace","Italian",3.8,"456 Mozzarella Street","Rome","00100","Margherita Pizza",18.75,"Spaghetti Carbonara",16.20,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e2e"),"Sushi Spot","Japanese",4.9,"789 Wasabi Avenue","Tokyo","100-0001","California Roll",10.50,"Sashimi Platter",25.00,false,ISODate("2025-08-06T23:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e2f"),"El Fuego Loco","Mexican",4.2,"101 Tacos Road","Mexico City","06000","Tacos al Pastor",8.99,"Chicken Quesadilla",11.50,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e30"),"Burger Joint","American",4.1,"202 Hamburger Blvd","New York","10001","Classic Cheeseburger",12.99,"Sweet Potato Fries",5.50,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e31"),"Le Petit Café","French",4.7,"303 Croissant Street","Paris","75001","Croque Monsieur",14.00,"French Onion Soup",9.75,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e32"),"Thai Orchid","Thai",4.6,"404 Pad Thai Alley","Bangkok","10120","Pad Thai",13.50,"Green Curry",14.99,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e33"),"Taste of Greece","Greek",4.3,"505 Gyro Lane","Athens","105 51","Gyro Plate",15.00,"Spanakopita",8.25,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e34"),"Vegan Delights","Vegan",4.8,"606 Tofu Terrace","Berlin","10115","Beyond Burger",16.99,"Kale Caesar Salad",10.00,true,ISODate("2025-08-07T05:00:00Z")
+ObjectId("60c72b2f901b8c1d3c0e3e35"),"Golden Wok","Chinese",3.9,"707 Noodles Road","Beijing","100000","Kung Pao Chicken",17.25,"Peking Duck",28.50,false,ISODate("2025-08-06T22:00:00Z")
