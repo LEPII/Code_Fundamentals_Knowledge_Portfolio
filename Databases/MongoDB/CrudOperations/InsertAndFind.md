@@ -23,6 +23,10 @@ insertMany()
 
 ## Finding Documents in a MongoDB Collection
 
+findOne()
+
+- This command locates a single document based on the certain criteria.
+
 find()
 
 - To use the find method, you will append it to the database and collection name like: db.collectionName.find()
@@ -36,6 +40,7 @@ To retrieve a specific document from our collection, we can do this in two ways:
 2. implicit syntax of $eq:
    {field: <value>}
    ex: db.grades.find({ grade: "A"})
+   
 
 $in operator
 
