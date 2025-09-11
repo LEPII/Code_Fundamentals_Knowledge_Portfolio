@@ -56,7 +56,7 @@ ex.
 
 {
 $group: {
-\_id: <expression>, // group key
+_id: <expression>, // group key
 <field>: { <accumulator> : <expression>}
 }
 }
