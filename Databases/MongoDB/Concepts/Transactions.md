@@ -22,5 +22,16 @@
 - updateOne() is technically an Acid Transaction
 - Multi-Document Operations are not inherently atomic and require extra steps to have ACID properties
 - Mongo "locks" resources involved in a transaction.
-- Incurs perfomrance costs and affects latency.
+- Incurs performance costs and affects latency.
 - Use multi-document transactions as a percise tool.
+
+## Using Transactions In Mongo
+
+- To begin a transaction, we need to open a session.
+- A session is a group of database operations that are related to each other and should be run together, similar to a transaction.
+
+- A transaction by default, has a maximum runtime of less than one minute after the first write. In other words, once you make the first write in your transaction, you've only got 60 seconds to complete it.
+- If we get an error like "MongoServerError: Transaction 1 has been aborted", it's likely that the transaction has timed out and it needs to be ran again.
+- We need to make sure that we have our database operations prepared beforehand in order to meet this constraint
+
+- There will be no shell output when starting/aborting a transaction.
