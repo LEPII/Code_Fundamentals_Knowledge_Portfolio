@@ -1,6 +1,6 @@
-# Table of Content  
+# Table of Content
 
-<!-- 
+<!--
 ## Atlas Search Fundamentals
 ## Dynamic vs. Static Mappings
 ## Data Types
@@ -32,11 +32,11 @@ Ex. db.movies.createSearchIndex(
 Ex. db.movies.aggregate([
 {
 "$search": {
- "index": "plotIndex",
- "text": {
-    "query": "space",
-    "path": "plot"
- }
+"index": "plotIndex",
+"text": {
+"query": "space",
+"path": "plot"
+}
 }
 }
 ])
@@ -46,8 +46,38 @@ Ex. db.movies.aggregate([
 
 - We can use the $meta aggregation operation in the project stage which allows to see how the results are scored. Ex. "score": { "$meta": "searchScore"}
 - Atlas search has a relevance-based scoring system. The documents with the highest score is the most relevant and it is returned first.
-- AS gives documents with a higher score if the query term appears frequently in a document, and a lower score if the query term appears across many documents in the collection. 
+- AS gives documents with a higher score if the query term appears frequently in a document, and a lower score if the query term appears across many documents in the collection.
 
-- The $searchMeta stage is used to return the summary of your search results. 
-- If you wanted to get the count of the documents returned, it would be more performant to use $searchMeta stage instead of adding a count stage at the end of your pipeline. 
-- Like the $search stage, the $seachMeta stage must be used at the beginning of the aggregation pipeline. 
+- The $searchMeta stage is used to return the summary of your search results.
+- If you wanted to get the count of the documents returned, it would be more performant to use $searchMeta stage instead of adding a count stage at the end of your pipeline.
+- Like the $search stage, the $seachMeta stage must be used at the beginning of the aggregation pipeline.
+
+## Dynamic vs. Static Mappings
+
+- Field Mapping: When creating a search index, we need to provide some details on which fields need to be indexed.
+- Having the correct field mapped can help with the performance of your search.
+
+Dynamic Mapping
+
+- With DM, we index every field with supported data type.
+- DM are great for data sets with unknown or frequently changing fields.
+- Also great when experimenting with Atlas Search, so you don't have to constantly update your search index depending on the query.
+- DM have have a increased size and performance impacts compared to static mappings.
+
+since we didn't provide a name for the index, it will be saved as default.
+each field in the movie collection will be indexed. This means we can create a search query for any of these fields. Even if we added a new field, it will be indexed automatically. 
+db.movies.createSearchIndex(
+   { "mapping": { "dynamic": true} }
+)
+
+Static Mapping
+
+When to use them
+
+## Data Types
+
+## $search operators: text and equals
+
+## $search operators: near and range
+
+## Creating Search Facets
