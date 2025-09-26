@@ -192,8 +192,15 @@ db.movies.aggregate([
 {"project": {"_id": 0, "title":1, "released":1 }}
 ])
 
-- The pivot value can best be described as the maximum distance from the origin that leads to a score of 0.5. The distance is the difference between the index
+Pivot
 
-range 
+- The pivot value can best be described as the maximum distance from the origin that leads to a score of 0.5.
+- The distance is the difference between the index fields value and the specified origin. A result with the distance of zero from the origin is given the highest score of 1.
+- As we move away from the origin, the score drops below until it reaches 0.5 at the pivot value. The results past the pivot value are scored progressively below 0.5.
+- A pivot value can be a integer or a floating point, depending on the data type use by the origin and its value cannot be 0.
+- When the origin is a data or a number, we need to use an integer.
+- Because we're searching for the nearest date in our example, the distance from the origin and our pivot value will be in milliseconds.
+- When the origin is a GeoJSON location, the pivot value is measured in meters, must be specified as an integer or floating point number.
+range
 
 ## Creating Search Facets
