@@ -176,7 +176,7 @@ The documents returns are the titles with the release dates of 03/31/1999
 near
 
 - The near search operator performs a search for dates, numbers or geographic locations nearest to a given value or point.
-- Returns all documents in collection ordered by their proximity to the provided value.
+- Returns ALL DOCUMENTS in collection ordered by their proximity to the provided value.
 - A common use is plotting locations near a given point on a map
 
 db.movies.aggregate([
@@ -185,7 +185,7 @@ db.movies.aggregate([
 "near": {
 "path": "released",
 "origin": ISODate("1999-03-31T00:00:00.000Z"),
-"pivot": 2629746000 // helps score our results. 
+"pivot": 2629746000 // helps score our results.
 }
 }
 }
@@ -201,6 +201,44 @@ Pivot
 - When the origin is a data or a number, we need to use an integer.
 - Because we're searching for the nearest date in our example, the distance from the origin and our pivot value will be in milliseconds.
 - When the origin is a GeoJSON location, the pivot value is measured in meters, must be specified as an integer or floating point number.
+
 range
 
+- Performs a searched based on a range of numbers or dates.
+- Its syntax is similar to a MongoDB query using comparison operators such as gt, gte, lt, lte... but we don't need the $ prefix
+
+db.movies.aggregate([
+{ "search": {
+"index": "plotReleasedIndex",
+"near": {
+"path": "released",
+"gt": ISODate("1994-01-01T00:00:00.000Z"),
+"lt": ISODate("1999-01-01T00:00:00.000Z"),
+}
+}
+}
+{"project": {"_id": 0, "title":1, "released":1 }}
+])
+
 ## Creating Search Facets
+
+- Facets give us the ability to group search results by category or range and returns the count for each specified group.
+- These groups are generally referred to as buckets.
+
+db.movies.createSearchIndex([
+{"$searchMeta": { // because we're retrieving the count of each genre.
+"index": "genresFacetedIndex",
+"facet": {
+"operator" { // here we can use any operator. 
+"range": {
+"path": "released",
+"gte": ISODate("2000-01-01T00:00:00.00Z"),
+"lte": ISODate("2000-01-01T00:00:00.00Z")
+}}, "facets": {
+  "genreFacet" {
+  "type": "string",
+  "path": "genres"},
+  "numBuckets": 2 // optionally limit the buckets // we would see only 2 buckets with the highest count
+}
+
+}}}])
