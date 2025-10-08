@@ -68,7 +68,6 @@ Duplication
 
 ### Schema Versioning Pattern
 
-
 ## Anti-Patterns
 
 ### Unbounded Arrays
@@ -113,5 +112,7 @@ db.collection.stats().avgObjSize
 - We can update our data model to use the existing memory more efficiently.
 
 ### Massive Numbers Of Collections
+
 ### Unnecessary Indexes
+
 ### Data Normalization
