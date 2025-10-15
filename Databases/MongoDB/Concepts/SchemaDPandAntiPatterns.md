@@ -13,6 +13,7 @@
 ### Massive Numbers Of Collections
 ### Unnecessary Indexes
 ### Data Normalization
+### Case-Sensitivity 
 
 ## Manage Database Schema Lifecycle
 ### Schema Evolution
@@ -68,6 +69,11 @@ Duplication
 
 ### Schema Versioning Pattern
 
+- Documents with the different shapes or schema versions can exist within the same collection.
+- To help the app identify a new shape, you could use a "schema_version: 2" field or something similar and increment the schema number.
+- To have multiple schemas contract relational DB where you can only have 1 schema per table.
+- To update existing documents to the new shape, you can either have the application update the shape when the document is accessed OR have a background task performed update on all documents. 
+
 ## Anti-Patterns
 
 ### Unbounded Arrays
@@ -113,6 +119,68 @@ db.collection.stats().avgObjSize
 
 ### Massive Numbers Of Collections
 
+- One way to manage this anti-pattern is to drop or archive unused collection.
+- Sharding your database is another potential solution.
+
 ### Unnecessary Indexes
 
+- Indexes are unnecessary when they are not/rarely used or are covered by another compound index.
+- 64 is the limit per collection.
+- Indexes require space and when used they are loaded in memory, grows as documents are added and can negatively impact on write performance.
+- Before dropping an index, we recommend hiding it with the `hideIndex()` method and `dropIndex()` to permanently drop the index.
+
 ### Data Normalization
+
+- Data normalization anti-pattern is when data model separates data that is accessed together into different collections.
+- To Fix this you can either use the subset pattern or the extended reference pattern tot keep the data that we need to access together in a single collection.
+
+### Case-Sensitivity
+
+- MongoDB queries are case-sensitive by default.
+- Case-Sensitivity Anti Pattern - Using the default, MongoDB query settings but expecting search terms to ignore case
+- Could return unexpected results and reduce performance.
+
+Solution
+
+- Use Collations
+- A collation defines the language-specific rules that are used by MongoDB to determine how characters in a string are sorted and compared during a query.
+- Collations must specify a locale for desire language, e.g. `local: 'en'`; so that language-specific rules are used during the comparison.
+- Collations also have a strength level from 1 to 5. Default is 3 which effectively makes the comparisons case sensitive
+- To make the comparison case-insensitive we need to make the strength a 1 or 2.
+- - A value of 1 compares base characters only, ignoring diacritics or accents and case.
+- - A value of 2 includes secondary differences and diacritics.
+
+Using Collations
+
+- Option 1 : Build an index with a given collation, making sure the collation is not case sensitive. We then specify that same collation in our query.
+- Option 2 : Assign a default collation when we create a collection. Default collation applies to all indexes on that collection. This collation cannot be changes after the collection has been created.
+Any queries against the collection will also use the same collation. We can override the collation at the query level only.
+- $regex with /i option. - well supported when used for exact matches. Not efficient when search terms are case insensitive. As a result, this approach isn't recommended.
+
+db.Books.find(
+{ title: `Practical MongoDB Aggregations` }
+).collation({locale: 'en', strength: 2})
+
+- If theres an index for a search but if it doesn't have the collation, you'll need to first drop the index if it has the same search and add the collation. 
+
+## Manage Database Schema Lifecycle
+
+### Schema Evolution
+
+- Sometimes schemas change as part of a planned update where all stakeholders are informed and aware that changes will be made
+- In modern apps, its common for changes to happen Ad hoc, after the initial schema design phase, and during development.
+- Atlas Schema Suggestions - A built in tool to automatically monitor your cluster and suggest schema improvement.
+
+### Schema Migration
+
+- Transitions from one schema to the next is known as Schema Migration
+- Large number of versions increases complexity.
+- Limit the number of schema versions to the minimum required by your organization and use case.
+
+- Once we are ready to migrate to the new version of our schema, there are several strategies that we could use including:
+- - Eager Migration - All At Once;
+- - Lazy Migration - Where Changes are implemented as data is used;
+- - Incremental Migration - Where we take small steps to implement changes;
+- - Predictive Migration - Update the Schema based on predictions for future data usage;
+
+- To enforce a schema when there is more than one version is to use the `oneOf` keyword.
