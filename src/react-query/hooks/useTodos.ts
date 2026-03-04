@@ -1,13 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
 import { CACHE_KEY_TODOS } from "../constants";
+import todoServices, {Todo} from "../services/todoServices";
 
-export interface Todo {
-  id: number;
-  title: string;
-  userId: number;
-  completed: boolean;
-}
+
 
   // To fetch data with react query, we use the query hook.
   // Anytime we retrieve a piece of data from the backend, the data will be stored in the cache, and will be accessible via the queryKey.
@@ -19,14 +14,9 @@ export interface Todo {
   // - Caching / The first time we get a piece of data, its stored in the cache and will be fresh for a certain period of time. If we need the data and it's still in the cache, you don't need to go to the sever, and we could get it directly from the cache which greatly improves the performance of our app.
 
 const useTodos = () => {
-  const fetchTodos = () =>
-    axios
-      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
-      .then((res) => res.data);
-
   return useQuery<Todo[], Error>({
     queryKey: CACHE_KEY_TODOS,
-    queryFn: fetchTodos,
+    queryFn: todoServices.getAll,
     staleTime: 10 * 1000,
   });
 };
