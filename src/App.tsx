@@ -1,13 +1,13 @@
-import "./App.css";
+// import "./App.css";
 import PostList from "./react-query/PostList";
 import TodoForm from "./react-query/TodoForm";
 import TodoList from "./react-query/TodoList";
 
 function App() {
-  return <>
+  return <> 
     <TodoForm />
-
-    <PostList />  </>;
+    <PostList />
+  </>;
 }
 
 export default App;
