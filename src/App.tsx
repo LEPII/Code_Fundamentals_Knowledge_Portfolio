@@ -1,11 +1,16 @@
-import Counter from "./state-management/Counter";
-import TaskList from "./state-management/TaskList";
+import { useReducer } from "react";
+import HomePage from "./state-management/HomePage.tsx";
+import Navbar from "./state-management/NavBar.tsx";
+import TaskProvider from "./state-management/TaskProvider.tsx";
+
 
 function App() {
-  return <>
-    <Counter/>
-    <TaskList/>
-  </>
+  return (
+    <TaskProvider>
+      <Navbar />
+      <HomePage />
+    </TaskProvider>
+  )
 }
 
-    export default App;
+export default App;
