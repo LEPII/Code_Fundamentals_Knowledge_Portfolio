@@ -1,8 +1,6 @@
-import { useReducer } from "react";
 import HomePage from "./state-management/HomePage.tsx";
 import Navbar from "./state-management/NavBar.tsx";
-import TaskProvider from "./state-management/TaskProvider.tsx";
-
+import { TaskProvider } from "./state-management/tasks/index.ts";
 
 function App() {
   return (
