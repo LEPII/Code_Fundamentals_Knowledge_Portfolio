@@ -3,6 +3,8 @@ import ReactDOM from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import App from "./App";
+import { RouterProvider } from "react-router-dom";
+import router from "./routing/routes";
 
 // QueryClient is the core object we use for managing and caching remote data in React Query.
 // Then we need this to our component tree using our QueryClient provider
@@ -57,7 +59,7 @@ const queryClient = new QueryClient({
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      <App />
+     <RouterProvider router={router} />
       <ReactQueryDevtools />
     </QueryClientProvider>
   </React.StrictMode>

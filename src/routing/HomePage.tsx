@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const HomePage = () => {
   return (
     <>
@@ -6,6 +8,7 @@ const HomePage = () => {
         Incidunt, mollitia!
       </p>
       <a href="/users">Users</a>
+      <Link to="/users">Users</Link>
     </>
   );
 };
