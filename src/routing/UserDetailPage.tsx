@@ -1,6 +1,8 @@
-import { useLocation, useParams, useSearchParams } from "react-router-dom";
+import { Navigate, useLocation, useParams, useSearchParams } from "react-router-dom";
+import useAuth from "./hooks/useAuth";
 
 const UserDetailPage = () => {
+
 
   const params = useParams() // with this we could get the params from the url. The params object will contain the values of the dynamic segments in the url. For example, if the url is /users/1, the params object will be { id: "1" }. If the url is /users/1/posts/2, the params object will be { id: "1", postId: "2" }.
   const [searchParams, setSearchParams] = useSearchParams() // with this we could get and update the query params from the url. The first element is the searchParams object and the second is a function to set the search params.
@@ -14,7 +16,7 @@ const UserDetailPage = () => {
   // Keeping the component pure and not having side effects is a good practice. If you want to update the query params based on some user action, you can do that in an event handler or useEffect hook.
   const location = useLocation() // this hook returns the current location object, which contains information about the current url. You can use this to get the current pathname, search params, hash, etc. For example, you can use location.pathname to get the current pathname, or location.search to get the current search params.
   console.log(location) // this will log the current location object to the console. You can use this to debug and see what the current url is.
-  return <p>User</p>;
+  return <p>User {params.id}</p>;
 };
 
 export default UserDetailPage;
